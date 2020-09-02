@@ -22,5 +22,10 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
     res.send(result);
 })
 
+router.post("/crear", async (req: Request, res: Response) => {
+    let result = req.body
+    console.log(result)
+    res.send(result);
+})
 
 export default router

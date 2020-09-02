@@ -11,6 +11,12 @@ export class Persona {
     @Column()
     apellido!: string
 
+    @Column()
+    fechaNacimiento!: string
+
+    @Column()
+    correo!: string
+
     @CreateDateColumn()
     createdAt!: string
 

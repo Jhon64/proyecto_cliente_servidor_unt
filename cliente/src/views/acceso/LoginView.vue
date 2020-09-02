@@ -1,5 +1,5 @@
 <template>
-  <div class="col-8 col-sm-4 col-lg-3 col-md-4  mx-auto pt-5">
+  <div class="col-8 col-sm-8 col-lg-4 col-md-6  mx-auto pt-5">
     <div>
       <b-card title="Login" class="mb-2 text-center">
         <hr />
@@ -19,7 +19,7 @@
           class="float-left"
           href="#"
           variant="primary"
-          v-on:click="logear"
+          v-on:click="logear()"
           >Entrar</b-button
         >
         <router-link
@@ -52,6 +52,11 @@ export default {
       if (result.status == 200) {
         let token = result.data.token;
         localStorage.setItem("tokenAuth", token);
+        this.$router.push(
+          "/home",
+          () => {},
+          () => {}
+        );
       } else {
         localStorage.removeItem("tokenAuth");
       }

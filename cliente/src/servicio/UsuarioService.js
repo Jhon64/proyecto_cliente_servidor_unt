@@ -2,6 +2,7 @@ import axios from "axios";
 let usuarioService = {
   async login(credenciales) {
     let result = await axios({
+      baseURL: "http://localhost:4000",
       url: "/login",
       method: "POST",
       data: credenciales,

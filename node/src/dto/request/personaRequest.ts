@@ -1,5 +1,7 @@
 export class PersonaRequest {
     nombre!: string
     apellido!: string
+    correo!: string
+    fechaNacimiento!: string
 
 }

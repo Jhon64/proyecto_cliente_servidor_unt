@@ -22,4 +22,6 @@ export class Persona {
 
     @UpdateDateColumn()
     updatedAt!: string
+
+
 }

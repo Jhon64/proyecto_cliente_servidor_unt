@@ -1,4 +1,5 @@
-import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn } from "typeorm"
+import typeorm, { Column, CreateDateColumn, Entity, JoinColumn, OneToOne, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn } from "typeorm"
+import { Persona } from './Persona';
 
 @Entity()
 export class Usuario {
@@ -19,4 +20,8 @@ export class Usuario {
 
     @UpdateDateColumn()
     updatedAt!: string
+
+    @OneToOne(type => Persona)
+    @JoinColumn()
+    persona!: Persona;
 }

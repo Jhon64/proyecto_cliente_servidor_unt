@@ -2,6 +2,8 @@ import { UsuarioModel } from "../modelos/usuario.model";
 import { Usuario } from '../entidades/Usuario';
 import { UsuarioRequest } from "../dto/request/usuarioRequest";
 import jwt_token from "../middleware/jwt-token"
+import { PersonaRequest } from '../dto/request/personaRequest';
+import { Persona } from '../entidades/Persona';
 
 export class UsuarioControl {
     private model: UsuarioModel
@@ -59,6 +61,23 @@ export class UsuarioControl {
         } else {
             return result
         }
+
+    }
+
+    async crearUsuario(personaRequest: PersonaRequest, usuarioRequest: UsuarioRequest) {
+
+        let persona: Persona = new Persona();
+        let usuario: Usuario = new Usuario();
+        if (usuarioRequest.usuario != null) usuario.usuario = usuarioRequest.usuario;
+        if (usuarioRequest.clave != null) usuario.clave = usuarioRequest.clave;
+        if (usuarioRequest.rol != null) usuario.rol = usuarioRequest.rol;
+        if (personaRequest.nombre != null) persona.nombre = personaRequest.nombre
+        if (personaRequest.apellido != null) persona.apellido = personaRequest.apellido
+        if (personaRequest.correo != null) persona.correo = personaRequest.correo
+        if (personaRequest.fechaNacimiento != null) persona.fechaNacimiento = personaRequest.fechaNacimiento
+
+        let result = await this.model.crearUsuario(persona, usuario);
+        return result;
 
     }
 }

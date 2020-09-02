@@ -1,6 +1,7 @@
 
 import typeorm, { getRepository } from "typeorm"
 import { UsuarioResponse } from "../dto/response/usuarioResponse";
+import { Persona } from '../entidades/Persona';
 import { Usuario } from "../entidades/Usuario";
 import { UsuarioRepository } from "../repositorio/UsuarioRepository";
 
@@ -46,17 +47,40 @@ export class UsuarioModel implements UsuarioRepository {
     }
 
     async listar(): Promise<Array<UsuarioResponse>> {
-        let lista: Array<Usuario> = await getRepository(Usuario).find({ order: { id: "ASC" } })
+        let lista: Array<Usuario> = await getRepository(Usuario).find({ order: { id: "ASC" }, relations: ["persona"] })
         let result = lista.map((usuario: Usuario, index) => {
             let response = new UsuarioResponse()
+            console.log(usuario)
             response.Index = index + 1
             response.Id = usuario.id
             response.Usuario = usuario.usuario
             response.Clave = usuario.clave
             response.Rol = usuario.rol
+            response.Persona = usuario.persona
             return response;
         })
         return result;
+    }
+
+    async crearUsuario(persona: Persona, usuario: Usuario): Promise<UsuarioResponse> {
+        let resultPersona: Persona = await getRepository(Persona).save(persona)
+        usuario.persona = resultPersona
+        let result: Usuario = await getRepository(Usuario).save(usuario)
+        console.log(result)
+        if (result) {
+            let usuarioResponse = new UsuarioResponse();
+            usuarioResponse.Id = result.id;
+            usuarioResponse.Usuario = result.usuario;
+            usuarioResponse.Clave = result.clave;
+            usuarioResponse.Rol = result.rol;
+            usuarioResponse.Persona = result.persona;
+
+
+            return usuarioResponse
+        } else {
+            throw new Error("no se pudo registrar")
+        }
+
     }
 
 }

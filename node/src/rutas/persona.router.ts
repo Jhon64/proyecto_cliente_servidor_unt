@@ -8,7 +8,7 @@ let control = new PersonaControl()
 let router = Router();
 
 
-router.get("/listar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
+router.get("/listar", async (req: Request, res: Response) => {
 
     let result = await control.listarPersonas()
     res.status(200).json(result);

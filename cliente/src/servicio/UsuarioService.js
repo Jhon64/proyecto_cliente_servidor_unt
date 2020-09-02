@@ -16,6 +16,16 @@ let usuarioService = {
     }
     return result;
   },
+
+  async crear(data) {
+    let result = await axios({
+      baseURL: "http://localhost:4000",
+      url: "/usuario/crear",
+      method: "POST",
+      data: data,
+    });
+    return result;
+  },
 };
 
 export default usuarioService;

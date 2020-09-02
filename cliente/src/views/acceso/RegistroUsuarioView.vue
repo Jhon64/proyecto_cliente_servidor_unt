@@ -89,7 +89,10 @@
             </b-col>
           </b-row>
           <hr />
-          <button class="btn btn-sm btn-block btn-primary" :click="registrar()">
+          <button
+            class="btn btn-sm btn-block btn-primary"
+            v-on:click="registrar()"
+          >
             Registrar
           </button>
         </div>
@@ -99,6 +102,7 @@
 </template>
 
 <script>
+import usuarioServicio from "../../servicio/UsuarioService";
 export default {
   data() {
     return {
@@ -112,17 +116,19 @@ export default {
     };
   },
   methods: {
-    registrar() {
+    async registrar() {
       console.log("registro");
       let data = {
         nombre: this.nombre,
         apellidos: this.apellidos,
         correo: this.correo,
-        fnacimiento: this.fnacimiento,
+        fechaNacimiento: this.fnacimiento,
         clave: this.clave,
         usuario: this.usuario,
+        rol: 1,
       };
-      console.log(data);
+      let result = await usuarioServicio.crear(data);
+      console.log(result);
     },
   },
 };

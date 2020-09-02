@@ -1,6 +1,8 @@
 import express, { Router, Response, Request } from "express"
 import { UsuarioControl } from "../controladores/Usuario.control";
 import { UsuarioRequest } from "../dto/request/usuarioRequest";
+import { PersonaRequest } from '../dto/request/personaRequest';
+import { send } from "process";
 
 let control = new UsuarioControl()
 let router = Router();
@@ -23,9 +25,19 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
 })
 
 router.post("/crear", async (req: Request, res: Response) => {
-    let result = req.body
-    console.log(result)
-    res.send(result);
+
+    let usuarioRequest: UsuarioRequest = new UsuarioRequest()
+    let personaRequest: PersonaRequest = new PersonaRequest();
+    usuarioRequest.clave = req.body.clave;
+    usuarioRequest.usuario = req.body.usuario;
+    usuarioRequest.rol = req.body.rol;
+    personaRequest.nombre = req.body.nombre
+    personaRequest.apellido = req.body.apellidos
+    personaRequest.fechaNacimiento = req.body.fechaNacimiento
+    personaRequest.correo = req.body.correo
+    let result = await control.crearUsuario(personaRequest, usuarioRequest)
+    console.log(result);
+    res.send(result)
 })
 
 export default router

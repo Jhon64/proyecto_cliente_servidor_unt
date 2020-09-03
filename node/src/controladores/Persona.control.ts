@@ -17,6 +17,7 @@ export class PersonaControl {
         let persona = new Persona()
         if (request.nombre != null) persona.nombre = request.nombre;
         if (request.apellido != null) persona.apellido = request.apellido;
+        if (request.dni != null) persona.dni = request.dni;
         let result = await this.model.registrar(persona)
         return result;
 

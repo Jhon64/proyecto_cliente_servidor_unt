@@ -64,23 +64,28 @@ export class UsuarioModel implements UsuarioRepository {
 
     async crearUsuario(persona: Persona, usuario: Usuario): Promise<UsuarioResponse> {
         let resultPersona: Persona = await getRepository(Persona).save(persona)
-        usuario.persona = resultPersona
-        let result: Usuario = await getRepository(Usuario).save(usuario)
-        console.log(result)
-        if (result) {
-            let usuarioResponse = new UsuarioResponse();
-            usuarioResponse.Id = result.id;
-            usuarioResponse.Usuario = result.usuario;
-            usuarioResponse.Clave = result.clave;
-            usuarioResponse.Rol = result.rol;
-            usuarioResponse.Persona = result.persona;
-
-
-            return usuarioResponse
+        if (resultPersona.id !== undefined) {
+            usuario.persona = resultPersona
+            let result: Usuario = await getRepository(Usuario).save(usuario)
+            console.log(result)
+            if (result.id !== undefined) {
+                let usuarioResponse = new UsuarioResponse();
+                usuarioResponse.Id = result.id;
+                usuarioResponse.Usuario = result.usuario;
+                usuarioResponse.Clave = result.clave;
+                usuarioResponse.Rol = result.rol;
+                usuarioResponse.Persona = result.persona;
+                return usuarioResponse
+            } else {
+                let eliminar = await getRepository(Usuario).delete({ id: resultPersona.id })
+                throw new Error("no se pudo registrar Usuario")
+            }
         } else {
-            throw new Error("no se pudo registrar")
+            throw new Error("no se pudo registrar Persona")
         }
-
     }
+
+
+
 
 }

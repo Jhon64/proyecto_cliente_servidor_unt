@@ -26,18 +26,24 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
 
 router.post("/crear", async (req: Request, res: Response) => {
 
-    let usuarioRequest: UsuarioRequest = new UsuarioRequest()
-    let personaRequest: PersonaRequest = new PersonaRequest();
-    usuarioRequest.clave = req.body.clave;
-    usuarioRequest.usuario = req.body.usuario;
-    usuarioRequest.rol = req.body.rol;
-    personaRequest.nombre = req.body.nombre
-    personaRequest.apellido = req.body.apellidos
-    personaRequest.fechaNacimiento = req.body.fechaNacimiento
-    personaRequest.correo = req.body.correo
-    let result = await control.crearUsuario(personaRequest, usuarioRequest)
-    console.log(result);
-    res.send(result)
+    try {
+        let usuarioRequest: UsuarioRequest = new UsuarioRequest()
+        let personaRequest: PersonaRequest = new PersonaRequest();
+        usuarioRequest.clave = req.body.clave;
+        usuarioRequest.usuario = req.body.usuario;
+        usuarioRequest.rol = req.body.rol;
+        personaRequest.nombre = req.body.nombre
+        personaRequest.fechaNacimiento = req.body.fechaNacimiento
+        personaRequest.apellido = req.body.apellidos
+        personaRequest.dni = req.body.dni
+        personaRequest.correo = req.body.correo
+        let result = await control.crearUsuario(personaRequest, usuarioRequest)
+        console.log(result);
+        res.send(result)
+    } catch (error) {
+        res.status(500).send(error)
+    }
+
 })
 
 export default router

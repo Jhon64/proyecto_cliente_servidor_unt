@@ -14,8 +14,17 @@ export class Persona {
     @Column()
     fechaNacimiento!: string
 
-    @Column()
+    @Column({ nullable: true })
     correo!: string
+
+    @Column({ nullable: true })
+    celular!: string
+
+    @Column()
+    dni!: string
+
+    @Column({ default: 1 })
+    estado!: number
 
     @CreateDateColumn()
     createdAt!: string

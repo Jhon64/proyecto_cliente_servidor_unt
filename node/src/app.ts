@@ -6,7 +6,10 @@ import { Connection, createConnection, getConnection } from "typeorm"
 import personaRouter from "./rutas/persona.router"
 import indexRouter from "./rutas/index"
 import usuarioRouter from "./rutas/usuario.router"
+import empleadoRouter from "./rutas/empleado.router"
+import empresaRouter from "./rutas/empresa.router"
 import autenticarRouter from "./rutas/autenticar.router"
+import propietarioRouter from "./rutas/propietario.router"
 import cors from "cors"
 
 export class Aplicacion {
@@ -35,6 +38,9 @@ export class Aplicacion {
         this.app.use(indexRouter)
         this.app.use("/persona", personaRouter)
         this.app.use("/usuario", usuarioRouter)
+        this.app.use("/empleado", empleadoRouter)
+        this.app.use("/empresa", empresaRouter)
+        this.app.use("/propietario", propietarioRouter)
         this.app.use("/", autenticarRouter)
     }
     async database() {

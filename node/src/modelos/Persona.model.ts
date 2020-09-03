@@ -9,7 +9,7 @@ export class PersonaModel implements PersonaRepository {
         let result: Persona = await getRepository(Persona).save(persona)
         if (result) {
             let personaResponse = new PersonaResponse();
-            personaResponse.Id = result.id;
+            personaResponse.IdPersona = result.id;
             personaResponse.Nombre = result.nombre;
             personaResponse.Apellido = result.apellido;
             personaResponse.CreatedAt = result.createdAt;
@@ -28,7 +28,7 @@ export class PersonaModel implements PersonaRepository {
         let result = lista.map((persona: Persona, index) => {
             let response = new PersonaResponse()
             response.Index = index + 1
-            response.Id = persona.id
+            response.IdPersona = persona.id
             response.Nombre = persona.nombre
             response.Apellido = persona.apellido
             response.CreatedAt = persona.createdAt

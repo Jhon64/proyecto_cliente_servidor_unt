@@ -1,12 +1,14 @@
 <template>
-  <div id="app">
-    <router-view />
-  </div>
+  <router-view></router-view>
 </template>
 
-<style lang="scss">
-body {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  background-color: rgba(51, 51, 51, 0.5);
+<script>
+export default {
+  name: 'App'
 }
+</script>
+
+<style lang="scss">
+  // Import Main styles for this application
+  @import 'assets/scss/style';
 </style>

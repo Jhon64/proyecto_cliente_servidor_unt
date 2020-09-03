@@ -3,5 +3,8 @@ export class PersonaRequest {
     apellido!: string
     correo!: string
     fechaNacimiento!: string
+    celular!:string
+    dni!:string 
+    estado!:number
 
 }

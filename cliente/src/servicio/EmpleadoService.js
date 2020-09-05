@@ -20,10 +20,27 @@ let empleadoServicio = {
     return result;
   },
 
-  async eliminarPersona(id) {
+  async eliminarEmpleado(id) {
     let result = await axios({
       method: "DELETE",
-      url: `/persona/eliminar/${id}`,
+      url: `/empleado/eliminar/${id}`,
+    });
+    return result;
+  },
+
+  async buscarEmpleado(id) {
+    let result = await axios({
+      method: "GET",
+      url: `/empleado/buscar/${id}`,
+    });
+    return result;
+  },
+
+  async actualizarEmpleado(id, data) {
+    let result = await axios({
+      method: "PUT",
+      url: `/empleado/actualizar/${id}`,
+      data,
     });
     return result;
   },

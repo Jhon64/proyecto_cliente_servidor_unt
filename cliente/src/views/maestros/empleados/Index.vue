@@ -5,13 +5,14 @@
         Empleados
       </CCardHeader>
       <CCardBody>
-        <template>
-          <CCardBody>
-            <CrearEmpleado :refrescarLista="actualizarLista"></CrearEmpleado>
-            <div class="clearfix"></div>
-            <div><TablaEmpleado :lista="listEmpleado"></TablaEmpleado></div>
-          </CCardBody>
-        </template>
+        <CrearEmpleado :refrescarLista="actualizarLista"></CrearEmpleado>
+        <div class="clearfix"></div>
+        <div>
+          <TablaEmpleado
+            :lista="listEmpleado"
+            :refrescarLista="actualizarLista"
+          ></TablaEmpleado>
+        </div>
       </CCardBody>
     </CCard>
   </div>

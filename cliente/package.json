@@ -43,6 +43,7 @@
     "axios": "^0.20.0",
     "moment": "^2.27.0",
     "regenerator-runtime": "^0.13.7",
+    "sweetalert2": "^9.17.2",
     "text-mask-addons": "^3.8.0",
     "vue": "~2.6.11",
     "vue-head": "^2.2.0",

@@ -1,0 +1,14 @@
+table {
+    thead {
+        th {
+            background-color: rgba(4, 116, 162, .94);
+            color: rgba(235, 237, 239, 1);
+            font-weight: 100
+        }
+    }
+}
+
+.table th,
+.table td {
+    padding: 6px 8px !important
+}

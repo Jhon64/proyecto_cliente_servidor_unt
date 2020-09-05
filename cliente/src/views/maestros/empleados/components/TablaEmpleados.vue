@@ -5,32 +5,35 @@
     table-filter
     items-per-page-select
     :items-per-page="5"
-    hover
+    small
+    bordered
     striped
     sorter
     pagination
   >
-    <template #opciones="{persona, index}">
+    <template #FechaNacimiento="{item}">
+      <td class="py-2" style="vertical-align:middle">
+        {{ moment(item.FechaNacimiento).format("DD/MM/YYYY") }}
+      </td>
+    </template>
+    <template #Tipo="{item}">
+      <td class="py-2" style="vertical-align:middle">
+        <CBadge color="primary" v-if="item.Tipo !== null">
+          {{ item.Tipo }}</CBadge
+        >
+      </td>
+    </template>
+    <template #Opciones="{item}">
       <td class="py-2" style="vertical-align:middle">
         <CButtonToolbar>
-          <CButton
-            color="success"
-            variant="outline"
-            size="sm"
-            title="Editar"
-            square
-          >
-            <Fa icon="pencil-alt"></Fa>
-          </CButton>
-          <CButton
-            color="danger"
-            variant="outline"
-            size="sm"
-            square
-            title="Eliminar"
-            @click="eliminar()"
-            ><Fa icon="trash"
-          /></CButton>
+          <EditarEmpleado
+            :refrescarTabla="refrescarLista"
+            :id="item.IdEmpleado"
+          ></EditarEmpleado>
+          <EliminarEmpleado
+            :refrescarTabla="refrescarLista"
+            :id="item.IdEmpleado"
+          ></EliminarEmpleado>
         </CButtonToolbar>
       </td>
     </template>
@@ -38,25 +41,36 @@
 </template>
 
 <script>
+import EliminarEmpleado from "./EliminarEmpleado";
+import EditarEmpleado from "./EditarEmpleado";
+import moment from "moment";
 let cabeceraTabla = [
   { key: "Index", label: "Index" },
+  { key: "Dni", class: "bg-primary" },
   { key: "Nombre", class: "bg-primary" },
   { key: "Apellido", class: "bg-primary" },
+  { key: "FechaNacimiento", class: "bg-primary" },
+  { key: "Correo", class: "bg-primary" },
+  { key: "Celular", class: "bg-primary" },
+  { key: "Tipo", class: "bg-primary" },
   { key: "Opciones", class: "bg-primary" },
 ];
 export default {
   name: "TablaEmpleado",
+  components: { EliminarEmpleado, EditarEmpleado },
+
   data() {
     return {
       cabeceraTabla,
+      moment: moment,
     };
   },
-  props: { lista: Array },
+  props: { lista: Array, refrescarLista: Function },
   methods: {
-    eliminar() {},
-    editar() {},
+    refreshTabla() {
+      console.log("Actualizando tabla");
+      this.refrescarLista(true);
+    },
   },
 };
 </script>
-
-<style></style>

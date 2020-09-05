@@ -20,8 +20,10 @@ import VueHead from "vue-head";
 import MaskedInput from "vue-text-mask";
 import VueTheMask from "vue-the-mask";
 import "./notificaciones/toasted";
+import "./assets/scss/estilo.scss";
 import Vuelidate from "vuelidate";
 
+import "sweetalert2/src/sweetalert2.scss";
 axios.defaults.baseURL = "http://localhost:4000";
 axios.interceptors.response.use(
   function(response) {

@@ -6,7 +6,7 @@ export class Empleado {
   @PrimaryGeneratedColumn()
   idEmpleado!: number
 
-  @OneToOne(type => Persona)
+  @OneToOne(type => Persona, { onDelete: "CASCADE" })
   @JoinColumn()
   persona!: Persona;
 
@@ -16,6 +16,6 @@ export class Empleado {
   @Column({ nullable: true })
   areaId!: number
 
-  @Column({ length: 15 })
+  @Column({ length: 15, nullable: true })
   tipoEmpleado!: string
 }

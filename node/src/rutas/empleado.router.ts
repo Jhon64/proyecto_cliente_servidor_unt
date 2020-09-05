@@ -19,14 +19,42 @@ router.get("/listar", async (req: Request, res: Response) => {
 
 })
 
+router.get("/buscar/:id", async (req: Request, res: Response) => {
+    try {
+        let { id } = req.params
+        let idx = parseInt(id)
+        let result = await control.buscar(idx)
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+
+})
+router.put("/actualizar/:id", async (req: Request, res: Response) => {
+    try {
+        let { id } = req.params
+        let idx = parseInt(id)
+        let empleadoRequest = new EmpleadoRequest();
+        empleadoRequest = req.body;
+        let result = await control.actualizar(empleadoRequest, idx)
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+
+})
+
+
+
 router.post("/registrar", async (req: Request, res: Response) => {
     try {
 
         let empleadoRequest = new EmpleadoRequest();
         empleadoRequest = req.body;
         let result = await control.registrar(empleadoRequest);
-        console.log(">>>>>>>>>>>>")
-        console.log(result)
+
         res.status(200).send(result);
     } catch (error) {
         console.log(error)
@@ -37,10 +65,16 @@ router.post("/registrar", async (req: Request, res: Response) => {
 })
 
 router.delete("/eliminar/:id", async (req: Request, res: Response) => {
-    let { id } = req.params
-    let idnumber = parseInt(id)
-    let result = await control.eliminar(idnumber);
-    res.send(result);
+    try {
+        let { id } = req.params
+        let idnumber = parseInt(id)
+        let result = await control.eliminar(idnumber);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+
 })
 
 

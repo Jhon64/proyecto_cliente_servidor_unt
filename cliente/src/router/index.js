@@ -56,9 +56,10 @@ const Register = () => import("@/views/pages/Register");
 // Users
 const Usuarios = () => import("@/views/acceso/Usuario");
 const User = () => import("@/views/users/User");
+const Rol = () => import("@/views/acceso/Rol");
 
-// personas
-const personas = () => import("@/views/maestros/Persona");
+// maestros
+const empleados = () => import("@/views/maestros/empleados/Index");
 
 Vue.use(Router);
 
@@ -137,8 +138,13 @@ function configRoutes() {
           children: [
             {
               path: "usuario",
-              name: "usuario",
+              name: "Usuario",
               component: Usuarios,
+            },
+            {
+              path: "rol",
+              name: "Rol",
+              component: Rol,
             },
             {
               path: ":id",
@@ -152,7 +158,7 @@ function configRoutes() {
         },
         {
           path: "maestros",
-          redirect: "/maestros/personas",
+          redirect: "/maestros/empleados",
           name: "Maestros",
           component: {
             render(c) {
@@ -161,9 +167,9 @@ function configRoutes() {
           },
           children: [
             {
-              path: "personas",
-              name: "Personas",
-              component: personas,
+              path: "empleados",
+              name: "Empleados",
+              component: empleados,
             },
             {
               path: "forms",

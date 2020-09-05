@@ -26,6 +26,14 @@ let usuarioService = {
     });
     return result;
   },
+
+  async listarUsuarios() {
+    let result = await axios({
+      url: "/usuario/listar",
+      method: "GET",
+    });
+    return result;
+  },
 };
 
 export default usuarioService;

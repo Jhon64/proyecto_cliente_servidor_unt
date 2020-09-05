@@ -23,8 +23,12 @@ export default [
         icon: "cil-puzzle",
         items: [
           {
-            name: "usuarios",
+            name: "usuario",
             to: "/acceso/usuario",
+          },
+          {
+            name: "rol",
+            to: "/acceso/rol",
           },
         ],
       },
@@ -63,8 +67,8 @@ export default [
         icon: "cil-cursor",
         items: [
           {
-            name: "personas",
-            to: "/maestros/personas",
+            name: "Empleados",
+            to: "/maestros/empleados",
           },
         ],
       },

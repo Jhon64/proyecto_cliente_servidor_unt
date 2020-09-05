@@ -1,6 +1,6 @@
-import {PersonaResponse}from "./personaResponse"
-export class EmpleadoResponse extends PersonaResponse{
-      TipoEmpleado!: string
-      AreaId!:number
-      IdEmpleado!:number
+import { PersonaResponse } from "./personaResponse"
+export class EmpleadoResponse extends PersonaResponse {
+
+      AreaId!: number
+      IdEmpleado!: number
 }

@@ -1,18 +1,21 @@
-import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn,JoinColumn,OneToOne } from "typeorm"
-import {Persona} from "./Persona"
+import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne } from "typeorm"
+import { Persona } from "./Persona"
 @Entity()
-export class Empleado  {
+export class Empleado {
 
-    @PrimaryGeneratedColumn()
-    idEmpleado!:number
+  @PrimaryGeneratedColumn()
+  idEmpleado!: number
 
-    @OneToOne(type => Persona)
-    @JoinColumn()
-    persona!: Persona;
+  @OneToOne(type => Persona)
+  @JoinColumn()
+  persona!: Persona;
 
-      @Column()
-      negocio!: number
+  @Column({ nullable: true })
+  negocio!: number
 
-      @Column()
-      tipoEmpleado!: number
+  @Column({ nullable: true })
+  areaId!: number
+
+  @Column({ length: 15 })
+  tipoEmpleado!: string
 }

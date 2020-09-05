@@ -17,14 +17,21 @@ export class Persona {
     @Column({ nullable: true })
     correo!: string
 
+    @Column({ default: "cliente" })
+    tipoString!: string
+
     @Column({ nullable: true })
     celular!: string
 
-    @Column()
+    @Column({ length: 8 })
     dni!: string
 
     @Column({ default: 1 })
     estado!: number
+
+
+    @Column({ default: "cliente" })
+    tipo!: string
 
     @CreateDateColumn()
     createdAt!: string

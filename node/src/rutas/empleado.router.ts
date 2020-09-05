@@ -9,16 +9,31 @@ let router = Router();
 
 
 router.get("/listar", async (req: Request, res: Response) => {
+    try {
+        let result = await control.listarEmpleados()
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
 
-    let result = await control.listarEmpleados()
-    res.status(200).json(result);
 })
 
 router.post("/registrar", async (req: Request, res: Response) => {
-    let empleadoRequest = new EmpleadoRequest();
-    empleadoRequest = req.body;
-    let result = await control.registrar(empleadoRequest);
-    res.send(result);
+    try {
+
+        let empleadoRequest = new EmpleadoRequest();
+        empleadoRequest = req.body;
+        let result = await control.registrar(empleadoRequest);
+        console.log(">>>>>>>>>>>>")
+        console.log(result)
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+
+    }
+
 })
 
 router.delete("/eliminar/:id", async (req: Request, res: Response) => {

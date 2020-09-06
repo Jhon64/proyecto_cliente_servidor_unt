@@ -10,18 +10,33 @@ router.get("/listar", async (req: Request, res: Response) => {
     res.status(200).send(await control.listarPersonas());
 })
 
+
+
 router.post("/registrar", async (req: Request, res: Response) => {
-    let personaRequest = new UsuarioRequest();
-    personaRequest = req.body;
-    let result = await control.registrar(personaRequest);
-    res.send(result);
+    try {
+        let usuarioRequest = new UsuarioRequest();
+        usuarioRequest = req.body;
+        console.log(usuarioRequest)
+        console.log(req.body)
+        let result = await control.registrar(usuarioRequest);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error)
+    }
+
 })
 
 router.delete("/eliminar/:id", async (req: Request, res: Response) => {
-    let { id } = req.params
-    let idnumber = parseInt(id)
-    let result = await control.eliminar(idnumber);
-    res.send(result);
+    try {
+        let { id } = req.params
+        let idnumber = parseInt(id)
+        let result = await control.eliminar(idnumber);
+        res.status(200).send(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
+
 })
 
 router.post("/crear", async (req: Request, res: Response) => {
@@ -44,6 +59,42 @@ router.post("/crear", async (req: Request, res: Response) => {
         res.status(500).send(error)
     }
 
+})
+
+router.get("/buscar/:dni", async (req: Request, res: Response) => {
+    try {
+        let { dni } = req.params
+        res.status(200).send(await control.buscarDni(dni));
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
+
+router.get("/buscar/id/:id", async (req: Request, res: Response) => {
+    try {
+        let { id } = req.params
+        let idx = parseInt(id)
+        res.status(200).send(await control.buscarId(idx));
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+})
+
+router.put("/actualizar/:id", async (req: Request, res: Response) => {
+    try {
+        let { id } = req.params
+        let idx = parseInt(id)
+        let usuarioRequest = new UsuarioRequest()
+        usuarioRequest = req.body
+        let result = await control.actualizar(idx, usuarioRequest)
+        res.status(200).send(result);
+
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
 })
 
 export default router

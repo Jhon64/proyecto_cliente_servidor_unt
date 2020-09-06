@@ -34,6 +34,49 @@ let usuarioService = {
     });
     return result;
   },
+
+  async buscarDni(dni) {
+    let result = await axios({
+      url: "/usuario/buscar/" + dni,
+      method: "GET",
+    });
+    return result;
+  },
+
+  async registrarUsuario(data) {
+    console.log("registrando");
+    let result = await axios({
+      url: "/usuario/registrar",
+      method: "POST",
+      data,
+    });
+    return result;
+  },
+
+  async eliminarUsuario(id) {
+    let result = await axios({
+      url: "/usuario/eliminar/" + id,
+      method: "DELETE",
+    });
+    return result;
+  },
+
+  async buscarUsuarioId(id) {
+    let result = await axios({
+      url: "/usuario/buscar/id/" + id,
+      method: "GET",
+    });
+    return result;
+  },
+
+  async actualizarUsuario(id, data) {
+    let result = await axios({
+      url: "/usuario/actualizar/" + id,
+      method: "PUT",
+      data,
+    });
+    return result;
+  },
 };
 
 export default usuarioService;

@@ -77,7 +77,11 @@
         <hr />
         <div>
           <div class="float-right">
-            <CButton color="secondary" :variant="'outline'" class="mx-2"
+            <CButton
+              color="secondary"
+              @click="activarModal = false"
+              :variant="'outline'"
+              class="mx-2"
               >Cancelar</CButton
             >
             <CButton

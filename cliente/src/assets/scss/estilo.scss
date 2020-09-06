@@ -12,3 +12,25 @@ table {
 .table td {
     padding: 6px 8px !important
 }
+
+table {
+    tbody {
+        td {
+            vertical-align: middle !important
+        }
+    }
+}
+
+.modal-body {
+    .form-group {
+        margin-bottom: 5px !important;
+
+        label {
+            margin-bottom: 1px !important;
+        }
+    }
+}
+
+.error {
+    color: red;
+}

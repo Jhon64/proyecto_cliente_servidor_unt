@@ -5,55 +5,12 @@
         Usuarios
       </CCardHeader>
       <CCardBody>
-        <CrearUsuario></CrearUsuario>
+        <CrearUsuario :refrescarLista="actualizarLista"></CrearUsuario>
         <div class="clearfix"></div>
-        <CDataTable
-          :items="listaUsuarios"
-          :fields="fields"
-          table-filter
-          items-per-page-select
-          :items-per-page="5"
-          hover
-          striped
-          sorter
-          pagination
-        >
-          <template #Persona="{item}">
-            <td class="">
-              <div v-if="item.Persona !== null">
-                <div><strong>Nombre</strong> : {{ item.Persona.nombre }}</div>
-                <div>
-                  <strong>Apellido</strong> : {{ item.Persona.apellido }}
-                </div>
-                <div><strong>Dni</strong> : {{ item.Persona.dni }}</div>
-              </div>
-            </td>
-          </template>
-          <template #opciones="{persona, index}">
-            <td class="py-2" style="vertical-align:middle">
-              <CButtonToolbar>
-                <CButton
-                  color="success"
-                  variant="outline"
-                  size="sm"
-                  title="Editar"
-                  square
-                >
-                  <Fa icon="pencil-alt"></Fa>
-                </CButton>
-                <CButton
-                  color="danger"
-                  variant="outline"
-                  size="sm"
-                  square
-                  title="Eliminar"
-                  @click="eliminar()"
-                  ><Fa icon="trash"
-                /></CButton>
-              </CButtonToolbar>
-            </td>
-          </template>
-        </CDataTable>
+        <TablaUsuario
+          :lista="listaUsuarios"
+          :refrescarLista="actualizarLista"
+        ></TablaUsuario>
       </CCardBody>
     </CCard>
   </div>
@@ -62,234 +19,48 @@
 <script>
 import usuarioService from "../../../servicio/UsuarioService";
 import CrearUsuario from "./components/CrearUsuario";
-
-const items = [
-  {
-    username: "Samppa Nori",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    username: "Estavan Lykos",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    username: "Chetan Mohamed",
-    registered: "2012/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    username: "Derick Maximinus",
-    registered: "2012/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    username: "Friderik Dávid",
-    registered: "2012/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    username: "Yiorgos Avraamu",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    username: "Avram Tarasios",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: "Banned",
-    _classes: "table-success",
-  },
-  {
-    username: "Quintin Ed",
-    registered: "2012/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    username: "Enéas Kwadwo",
-    registered: "2012/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    username: "Agapetus Tadeáš",
-    registered: "2012/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    username: "Carwyn Fachtna",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Active",
-    _classes: "table-info",
-  },
-  {
-    username: "Nehemiah Tatius",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    username: "Ebbe Gemariah",
-    registered: "2012/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    username: "Eustorgios Amulius",
-    registered: "2012/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    username: "Leopold Gáspár",
-    registered: "2012/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    username: "Pompeius René",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    username: "Paĉjo Jadon",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    username: "Micheal Mercurius",
-    registered: "2012/02/01",
-    role: "Admin",
-    status: "Inactive",
-  },
-  {
-    username: "Ganesha Dubhghall",
-    registered: "2012/03/01",
-    role: "Member",
-    status: "Pending",
-  },
-  {
-    username: "Hiroto Šimun",
-    registered: "2012/01/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    username: "Vishnu Serghei",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Active",
-  },
-  {
-    username: "Zbyněk Phoibos",
-    registered: "2012/02/01",
-    role: "Staff",
-    status: "Banned",
-  },
-  {
-    username: "Einar Randall",
-    registered: "2012/02/01",
-    role: "Admin",
-    status: "Inactive",
-    _classes: "table-danger",
-  },
-  {
-    username: "Félix Troels",
-    registered: "2012/03/21",
-    role: "Staff",
-    status: "Active",
-  },
-  {
-    username: "Aulus Agmundr",
-    registered: "2012/01/01",
-    role: "Member",
-    status: "Pending",
-  },
-];
-
-const fields = [
-  { key: "Index", label: "Index" },
-  { key: "Usuario", class: "bg-primary" },
-  { key: "Clave", _style: "min-width:100px;", class: "bg-primary" },
-  { key: "Persona", _style: "min-width:100px;", class: "bg-primary" },
-  {
-    key: "opciones",
-    label: "",
-    class: "bg-primary",
-    sorter: false,
-    filter: false,
-  },
-];
+import TablaUsuario from "./components/TablaUsuario";
 
 export default {
-  components: { CrearUsuario: CrearUsuario },
+  components: { CrearUsuario: CrearUsuario, TablaUsuario },
   data() {
     return {
       listaUsuarios: [],
-      items: items.map((item, id) => {
-        return { ...item, id };
-      }),
-      fields,
-      details: [],
-      collapseDuration: 0,
-      acticarModal: false,
     };
   },
   mounted() {
     this.listarUsuarios();
   },
   methods: {
-    eliminar(id) {
-      console.log("elminar " + id);
+    actualizarLista(condicion) {
+      if (condicion) {
+        this.listarUsuarios();
+      }
     },
 
     async listarUsuarios() {
       let resultUsuarios = await usuarioService.listarUsuarios();
-
+      console.log(resultUsuarios);
       if (resultUsuarios.status == 200) {
         this.listaUsuarios = [];
+        let _vm = this;
         this.listaUsuarios = resultUsuarios.data.map((usuario) => {
           let newUsuario = usuario;
-          newUsuario.Opciones = "<button>Editar</button>";
+          newUsuario.Opciones = "";
+          newUsuario.Clave = _vm.convertirClave(usuario.Clave);
           return newUsuario;
         });
       }
     },
-    getBadge(status) {
-      switch (status) {
-        case "Active":
-          return "success";
-        case "Inactive":
-          return "secondary";
-        case "Pending":
-          return "warning";
-        case "Banned":
-          return "danger";
-        default:
-          "primary";
+    convertirClave(clave) {
+      let length = clave.length;
+      let cif = clave.substr(1, 1);
+
+      for (let index = 0; index < length; index++) {
+        cif += "*";
       }
-    },
-    toggleDetails(item) {
-      this.$set(this.items[item.id], "_toggled", !item._toggled);
-      this.collapseDuration = 300;
-      this.$nextTick(() => {
-        this.collapseDuration = 0;
-      });
+      return cif;
     },
   },
 };
 </script>
-
-<style></style>

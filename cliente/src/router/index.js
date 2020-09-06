@@ -54,7 +54,7 @@ const Login = () => import("@/views/pages/Login");
 const Register = () => import("@/views/pages/Register");
 
 // Users
-const Usuarios = () => import("@/views/acceso/Usuario");
+const Usuarios = () => import("@/views/acceso/usuario/Index");
 const User = () => import("@/views/users/User");
 const Rol = () => import("@/views/acceso/Rol");
 
@@ -172,8 +172,8 @@ function configRoutes() {
               component: empleados,
             },
             {
-              path: "forms",
-              name: "Forms",
+              path: "empresas",
+              name: "Empresas",
               component: Forms,
             },
             {

@@ -23,11 +23,11 @@ export default [
         icon: "cil-puzzle",
         items: [
           {
-            name: "usuario",
+            name: "Usuario",
             to: "/acceso/usuario",
           },
           {
-            name: "rol",
+            name: "Rol",
             to: "/acceso/rol",
           },
         ],
@@ -69,6 +69,10 @@ export default [
           {
             name: "Empleados",
             to: "/maestros/empleados",
+          },
+          {
+            name: "Empresas",
+            to: "/maestros/empresas",
           },
         ],
       },

@@ -89,8 +89,10 @@
         <CButtonClose @click="activarModal = false" class="text-white" />
       </template>
       <template #footer>
-        <CButton @click="activarModal = false" color="danger">Discard</CButton>
-        <CButton color="success" @click="actualizar(id)">Accept</CButton>
+        <CButton @click="activarModal = false" color="default"
+          >Cancelar</CButton
+        >
+        <CButton color="success" @click="actualizar(id)">Aceptar</CButton>
       </template>
     </CModal>
   </div>

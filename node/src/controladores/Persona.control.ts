@@ -28,4 +28,10 @@ export class PersonaControl {
         return result;
 
     }
+
+    async buscarDni(dni: string) {
+        let result = await this.model.buscarDni(dni)
+        return result;
+
+    }
 }

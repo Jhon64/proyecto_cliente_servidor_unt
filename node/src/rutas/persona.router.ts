@@ -15,10 +15,16 @@ router.get("/listar", async (req: Request, res: Response) => {
 })
 
 router.post("/registrar", async (req: Request, res: Response) => {
-    let personaRequest = new PersonaRequest();
-    personaRequest = req.body;
-    let result = await control.registrar(personaRequest);
-    res.send(result);
+    try {
+        let personaRequest = new PersonaRequest();
+        personaRequest = req.body;
+        let result = await control.registrar(personaRequest);
+        res.status(200).send(result);
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
+    }
+
 })
 
 router.delete("/eliminar/:id", async (req: Request, res: Response) => {
@@ -27,6 +33,16 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
     let result = await control.eliminar(idnumber);
     res.send(result);
 })
+router.get("/buscar/:dni", async (req: Request, res: Response) => {
+    try {
+        let { dni } = req.params
+        res.status(200).send(await control.buscarDni(dni));
+    } catch (error) {
+        console.log(error)
+        res.status(500).send(error);
 
+    }
+
+})
 
 export default router

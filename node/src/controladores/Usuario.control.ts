@@ -29,6 +29,11 @@ export class UsuarioControl {
         if (request.usuario != null) usuario.usuario = request.usuario;
         if (request.clave != null) usuario.clave = request.clave;
         if (request.rol != null) usuario.rol = request.rol;
+        if (request.idPersona != null) {
+            let persona = new Persona()
+            persona.id = request.idPersona
+            usuario.persona = persona
+        }
         let result = await this.model.registrar(usuario)
         return result;
 
@@ -93,9 +98,24 @@ export class UsuarioControl {
         } else {
             throw new Error("No se pudo crear Usuario");
         }
+    }
 
+    async buscarDni(dni: string) {
+        let result = await this.model.buscarDni(dni)
+        return result;
+    }
 
+    async buscarId(id: number) {
+        let result = await this.model.usuarioBuscarId(id)
+        return result;
 
+    }
+
+    async actualizar(id: number, usuarioRequest: UsuarioRequest) {
+        let usuario = new Usuario()
+        if (usuarioRequest.rol !== undefined) usuario.rol = usuarioRequest.rol
+        let result = await this.model.actualizarUsuario(usuario, id)
+        return result;
 
     }
 }

@@ -37,4 +37,14 @@ export class PersonaModel implements PersonaRepository {
         return result;
     }
 
+    async buscarDni(dni: string) {
+        let buscar: Persona | undefined = await getRepository(Persona).findOne({ where: { dni } })
+        if (buscar !== undefined) {
+            return buscar
+        } else {
+            throw new Error("no se encontro información")
+        }
+
+    }
+
 }

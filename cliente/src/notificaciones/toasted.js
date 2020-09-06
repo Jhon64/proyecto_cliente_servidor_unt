@@ -24,7 +24,9 @@ Vue.toasted.register(
     }
     return payload.mensaje;
   },
-  { type: "error", icon: "fa fa-user" }
+  {
+    type: "error",
+  }
 );
 
 //mensaje success

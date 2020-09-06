@@ -38,13 +38,25 @@ export default [
       },
       {
         _name: "CSidebarNavDropdown",
-        name: "Compras",
-        route: "/compras",
+        name: "Negocio",
+        route: "/negocio",
         icon: "cil-puzzle",
         items: [
           {
-            name: "Breadcrumbs",
-            to: "/base/breadcrumbs",
+            name: "Empresas",
+            to: "/negocio/empresas",
+          },
+          {
+            name: "Propietarios",
+            to: "/negocio/propietarios",
+          },
+          {
+            name: "Clientes",
+            to: "/negocio/clientes",
+          },
+          {
+            name: "Empleados",
+            to: "/negocio/empleados",
           },
         ],
       },
@@ -69,10 +81,6 @@ export default [
           {
             name: "Empleados",
             to: "/maestros/empleados",
-          },
-          {
-            name: "Empresas",
-            to: "/maestros/empresas",
           },
         ],
       },

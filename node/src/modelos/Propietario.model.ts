@@ -43,6 +43,8 @@ export class PropietarioModel {
             propetarioResponse.Nombre = propietario.persona.nombre;
             propetarioResponse.Apellido = propietario.persona.apellido;
             propetarioResponse.Correo = propietario.persona.correo;
+            propetarioResponse.Dni = propietario.persona.dni;
+            propetarioResponse.Tipo = propietario.persona.tipo;
             propetarioResponse.Celular = propietario.persona.celular;
             propetarioResponse.Estado = propietario.persona.estado;
             propetarioResponse.FechaNacimiento = propietario.persona.fechaNacimiento;
@@ -54,4 +56,27 @@ export class PropietarioModel {
         return result;
     }
 
+    async buscar(id: number) {
+        let result = getRepository(Propietario).findOne({ id }, { relations: ["persona"] })
+        if (result !== undefined) {
+            return result
+        } else {
+            throw new Error("no se encontro información")
+        }
+    }
+
+    async actualizar(propietario: Propietario, idPropietario: number) {
+        let resultPersona = await getRepository(Persona).update({ id: propietario.persona.id }, propietario.persona)
+        if (resultPersona) {
+            let resultPropietario = await getRepository(Propietario).update({ id: idPropietario }, propietario)
+            if (resultPropietario) {
+                return resultPropietario
+            } else {
+                throw new Error("no se pudo actualizar propietario")
+            }
+        } else {
+            throw new Error("no se pudo actualizar persona")
+        }
+
+    }
 }

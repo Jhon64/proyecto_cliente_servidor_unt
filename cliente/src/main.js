@@ -24,6 +24,11 @@ import "./notificaciones/toasted";
 import "./assets/scss/estilo.scss";
 import Vuelidate from "vuelidate";
 import "sweetalert2/src/sweetalert2.scss";
+import Swal from "sweetalert2";
+import vSelect from "vue-select";
+import "vue-select/dist/vue-select.css";
+
+Vue.component("v-select", vSelect);
 axios.defaults.baseURL = "http://localhost:4000";
 
 Vue.use(Vuelidate);
@@ -44,6 +49,7 @@ axios.interceptors.response.use(
     return response;
   },
   function(error) {
+    Swal.close();
     if (error.response.status === 500) {
       Vue.toasted.error(
         `<p>status:${error.response.status} </p><br>

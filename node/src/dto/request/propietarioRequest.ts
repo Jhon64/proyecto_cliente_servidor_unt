@@ -5,5 +5,7 @@ export class PropietarioRequest extends PersonaRequest {
       idPropietario!: number
       tipoComercial!: string
       usuario!: UsuarioRequest
-      empresas!: [EmpresaRequest]
+      empresas!: EmpresaRequest[]
+      empresaId!: number
+
 }

@@ -7,6 +7,7 @@ export class EmpresaResponse {
     Ruc!: string
     Direccion!: string
     Telefono!: string
+    Correo!: string
     TipoNegocio!: string
     PropietarioId!: number
     Propietario!: PropietarioResponse

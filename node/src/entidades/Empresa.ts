@@ -13,7 +13,7 @@ export class Empresa {
     @Column()
     razonSocial!: string
 
-    @Column()
+    @Column({ unique: true })
     ruc!: string
 
     @Column()
@@ -23,5 +23,8 @@ export class Empresa {
     telefono!: string
 
     @Column()
+    correo!: string
+
+    @Column({ nullable: true })
     tipoNegocio!: string
 }

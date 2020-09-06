@@ -4,6 +4,8 @@ export class EmpresaRequest {
     ruc!: string
     direccion!: string
     telefono!: string
+    correo!: string
     tipoNegocio!: string
     propietario!: PropietarioRequest
+    idPropietario!: number
 }

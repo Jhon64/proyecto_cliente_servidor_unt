@@ -14,6 +14,6 @@ export class Propietario {
   @OneToMany(type => Empresa, empresa => empresa.propietario)
   empresas!: []
 
-  @Column()
+  @Column({ nullable: true })
   tipoComercial!: string
 }

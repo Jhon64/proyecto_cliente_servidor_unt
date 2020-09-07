@@ -20,6 +20,7 @@ const Rol = () => import("@/views/acceso/Rol");
 
 // maestros
 const empleados = () => import("@/views/maestros/empleados/Index");
+const Servicios = () => import("@/views/maestros/servicios/Index");
 
 //negocio
 const Empresas = () => import("@/views/negocio/empresa/Index");
@@ -106,7 +107,7 @@ function configRoutes() {
         },
         {
           path: "maestros",
-          redirect: "/maestros/empleados",
+          redirect: "/maestros/servicios",
           name: "Maestros",
           component: {
             render(c) {
@@ -115,9 +116,9 @@ function configRoutes() {
           },
           children: [
             {
-              path: "empleados",
-              name: "Empleados",
-              component: empleados,
+              path: "servicios",
+              name: "Servicios",
+              component: Servicios,
             },
           ],
         },

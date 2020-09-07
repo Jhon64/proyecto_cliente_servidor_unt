@@ -2,6 +2,7 @@ import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGenera
 import { Persona } from "./Persona"
 import { Propietario } from "./Propietario"
 import { Empleado } from './Empleado';
+import { Servicio } from './Servicios';
 @Entity()
 export class Empresa {
 
@@ -13,6 +14,9 @@ export class Empresa {
 
     @OneToMany(type => Empleado, empleado => empleado)
     empleados!: Empleado[]
+
+    @OneToMany(type => Servicio, servicio => servicio.empresa)
+    servicios!: Servicio[]
 
     @Column()
     razonSocial!: string

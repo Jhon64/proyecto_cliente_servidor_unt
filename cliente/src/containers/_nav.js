@@ -79,8 +79,8 @@ export default [
         icon: "cil-cursor",
         items: [
           {
-            name: "Empleados",
-            to: "/maestros/empleados",
+            name: "Servicios",
+            to: "/maestros/servicios",
           },
         ],
       },

@@ -16,6 +16,7 @@ let propietarioServicio = {
       method: "POST",
       data: data,
       url: "/propietario/registrar",
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -24,6 +25,7 @@ let propietarioServicio = {
     let result = await axios({
       method: "DELETE",
       url: `/propietario/eliminar/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -32,6 +34,7 @@ let propietarioServicio = {
     let result = await axios({
       method: "GET",
       url: `/propietario/buscar/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -40,6 +43,7 @@ let propietarioServicio = {
     let result = await axios({
       method: "PUT",
       url: `/propietario/actualizar/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
       data,
     });
     return result;

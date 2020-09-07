@@ -62,14 +62,18 @@
         </div>
 
         <div class="form-group">
-          <label>Negocio</label>
+          <label>Empresa</label>
           <select
             class="form-control form-sm"
-            v-model="empleado.negocio"
+            v-model="empleado.empresa"
             required
           >
-            <option value="1">Negocio 1</option>
-            <option value="2">Negocio 2</option>
+            <option
+              v-for="(empresa, i) in listEmpresas"
+              :key="i"
+              :value="empresa.IdEmpresa"
+              >{{ empresa.RazonSocial }}</option
+            >
           </select>
         </div>
         <div class="form-group">
@@ -105,7 +109,7 @@ import MaskedInput from "vue-text-mask";
 import { TheMask } from "vue-the-mask";
 import Swal from "sweetalert2";
 import Datepicker from "vuejs-datepicker";
-
+import empresaService from "../../../../servicio/EmpresaService";
 export default {
   name: "EditarEmpleado",
   components: {
@@ -128,14 +132,26 @@ export default {
         dni: "",
         correo: "",
         celular: "",
-        negocio: null,
-        tipoEmpleado: null,
+        empresa: "",
+        tipoEmpleado: "",
+        tipo: "Empleado",
       },
+      listEmpresas: [],
       emailmask: emailMask,
     };
   },
   props: { id: { type: Number }, refrescarTabla: { type: Function } },
   methods: {
+    async listarEmpresas() {
+      let resultEmpresas = await empresaService.listarEmpresa();
+      console.log(resultEmpresas);
+      if (resultEmpresas.status === 200 && resultEmpresas.statusText == "OK") {
+        this.listEmpresas = resultEmpresas.data;
+        return true;
+      } else {
+        return false;
+      }
+    },
     async actualizar(id) {
       let _vm = this;
       Swal.fire({
@@ -143,6 +159,7 @@ export default {
           Swal.showLoading();
         },
       });
+      this.empleado.tipo = "Empleado";
       let resultService = await empleadoService.actualizarEmpleado(
         id,
         this.empleado
@@ -182,7 +199,7 @@ export default {
         dni: responseEmpleado.Dni,
         correo: responseEmpleado.Correo,
         celular: responseEmpleado.Celular,
-        negocio: null,
+        empresa: responseEmpleado.IdEmpresa,
         tipoEmpleado: responseEmpleado.Tipo,
       };
     },
@@ -197,8 +214,9 @@ export default {
         dni: "",
         correo: "",
         celular: "",
-        negocio: null,
-        tipoEmpleado: null,
+        empresa: "",
+        tipoEmpleado: "",
+        tipo: "",
       };
     },
 
@@ -209,21 +227,26 @@ export default {
         },
       });
       let resultBusqueda = await empleadoService.buscarEmpleado(id);
-      console.log(resultBusqueda);
-      if (resultBusqueda.status === 200 && resultBusqueda.statusText === "OK") {
-        Swal.close();
-        this.cargarInformacion(resultBusqueda.data);
-        this.activarModal = true;
-        return true;
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "No se encontró información",
-        });
-        this.limpiarInformacion();
-        this.activarModal = false;
-        return false;
+      if (this.listarEmpresas()) {
+        if (
+          resultBusqueda.status === 200 &&
+          resultBusqueda.statusText === "OK"
+        ) {
+          Swal.close();
+          this.limpiarInformacion();
+          this.cargarInformacion(resultBusqueda.data);
+          this.activarModal = true;
+          return true;
+        } else {
+          Swal.fire({
+            icon: "error",
+            title: "Oops...",
+            text: "No se encontró información",
+          });
+          this.limpiarInformacion();
+          this.activarModal = false;
+          return false;
+        }
       }
     },
   },

@@ -3,7 +3,7 @@
     <CButton
       class="float-right btn btn-sm btn-outline-primary"
       style="border-radius:15px"
-      @click="activarModal = true"
+      @click="abrirModal()"
     >
       <span class="fa fa-plus">&nbsp;&nbsp;Nuevo&nbsp;&nbsp;</span>
     </CButton>
@@ -55,10 +55,14 @@
           </div>
 
           <div class="form-group">
-            <label>Negocio</label>
+            <label>Empresa</label>
             <select class="form-control form-sm" v-model="negocio" required>
-              <option value="1">Negocio 1</option>
-              <option value="2">Negocio 2</option>
+              <option
+                v-for="(empresa, i) in listEmpresas"
+                :key="i"
+                :value="empresa.IdEmpresa"
+                >{{ empresa.RazonSocial }}</option
+              >
             </select>
           </div>
           <div class="form-group">
@@ -79,7 +83,7 @@
           <div class="float-right">
             <CButton
               color="secondary"
-              @click="activarModal = false"
+              @click="cerrarModal()"
               :variant="'outline'"
               class="mx-2"
               >Cancelar</CButton
@@ -102,6 +106,7 @@
 <script>
 import Modal from "../../../../components/coreui/Modal";
 import empleadoService from "../../../../servicio/EmpleadoService";
+import empresaService from "../../../../servicio/EmpresaService";
 import emailMask from "text-mask-addons/dist/emailMask";
 import MaskedInput from "vue-text-mask";
 import { TheMask } from "vue-the-mask";
@@ -130,10 +135,51 @@ export default {
       negocio: null,
       tipoEmpleado: null,
       emailmask: emailMask,
+      listEmpresas: [],
     };
   },
   props: ["refrescarLista"],
   methods: {
+    abrirModal() {
+      this.limpiarModal();
+      if (this.listarEmpresas()) {
+        this.activarModal = true;
+      } else {
+        this.activarModal = false;
+        this.$toasted.global
+          .appError({
+            mensaje:
+              "No se pudo cargar Emresas...<br> por favor registre empresas",
+          })
+          .goAway(1200);
+        alse;
+      }
+    },
+    async listarEmpresas() {
+      let resultEmpresas = await empresaService.listarEmpresa();
+      console.log(resultEmpresas);
+      if (resultEmpresas.status === 200 && resultEmpresas.statusText == "OK") {
+        this.listEmpresas = resultEmpresas.data;
+        return true;
+      } else {
+        return false;
+      }
+    },
+    limpiarModal() {
+      this.nombre = "";
+      this.apellido = "";
+      this.dni = "";
+      this.fechaNacimiento = "";
+      this.correo = "";
+      this.celular = "";
+      this.negocio = "";
+      this.tipo = "";
+      this.tipoEmpleado = "";
+    },
+    cerrarModal() {
+      this.limpiarModal();
+      this.activarModal = false;
+    },
     async registrarEmpleado(evt) {
       this.$toasted.global
         .appSuccess({
@@ -147,22 +193,15 @@ export default {
         fechaNacimiento: this.fechaNacimiento,
         correo: this.correo,
         celular: this.celular,
-        negocio: this.negocio,
+        tipo: "Empleado",
+        empresa: this.negocio,
         tipoEmpleado: this.tipoEmpleado,
       };
       console.log(data);
       let resultRegistro = await empleadoService.registrarEmpleado(data);
       console.log(resultRegistro);
       if (resultRegistro.status === 200 && resultRegistro.statusText === "OK") {
-        this.nombre = "";
-        this.apellido = "";
-        this.dni = "";
-        this.fechaNacimiento = "";
-        this.correo = "";
-        this.celular = "";
-        this.negocio = "";
-        this.tipoEmpleado = "";
-        this.activarModal = false;
+        this.cerrarModal();
         this.$toasted.global
           .appPrimary({
             mensaje: "Empleado registrado ....",

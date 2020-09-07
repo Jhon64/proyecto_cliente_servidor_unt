@@ -3,16 +3,16 @@ import { UsuarioControl } from "../controladores/Usuario.control";
 import { UsuarioRequest } from "../dto/request/usuarioRequest";
 import { PersonaRequest } from '../dto/request/personaRequest';
 import { send } from "process";
-
+import verificarAutenticacion from "../middleware/autenticacion/auth"
 let control = new UsuarioControl()
 let router = Router();
-router.get("/listar", async (req: Request, res: Response) => {
+router.get("/listar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     res.status(200).send(await control.listarPersonas());
 })
 
 
 
-router.post("/registrar", async (req: Request, res: Response) => {
+router.post("/registrar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let usuarioRequest = new UsuarioRequest();
         usuarioRequest = req.body;
@@ -27,7 +27,7 @@ router.post("/registrar", async (req: Request, res: Response) => {
 
 })
 
-router.delete("/eliminar/:id", async (req: Request, res: Response) => {
+router.delete("/eliminar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idnumber = parseInt(id)
@@ -51,7 +51,9 @@ router.post("/crear", async (req: Request, res: Response) => {
         personaRequest.fechaNacimiento = req.body.fechaNacimiento
         personaRequest.apellido = req.body.apellidos
         personaRequest.dni = req.body.dni
+        personaRequest.tipo = req.body.tipo
         personaRequest.correo = req.body.correo
+        personaRequest.celular = req.body.celular
         let result = await control.crearUsuario(personaRequest, usuarioRequest)
         console.log(result);
         res.send(result)
@@ -61,7 +63,7 @@ router.post("/crear", async (req: Request, res: Response) => {
 
 })
 
-router.get("/buscar/:dni", async (req: Request, res: Response) => {
+router.get("/buscar/:dni", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { dni } = req.params
         res.status(200).send(await control.buscarDni(dni));
@@ -71,7 +73,7 @@ router.get("/buscar/:dni", async (req: Request, res: Response) => {
     }
 })
 
-router.get("/buscar/id/:id", async (req: Request, res: Response) => {
+router.get("/buscar/id/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idx = parseInt(id)
@@ -82,7 +84,7 @@ router.get("/buscar/id/:id", async (req: Request, res: Response) => {
     }
 })
 
-router.put("/actualizar/:id", async (req: Request, res: Response) => {
+router.put("/actualizar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idx = parseInt(id)

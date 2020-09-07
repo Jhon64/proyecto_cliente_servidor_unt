@@ -130,7 +130,6 @@ export default {
       this.limpiarDatos();
     },
     async registrar(evt) {
-      this.limpiarDatos();
       let _vm = this;
       Swal.fire({
         onBeforeOpen: () => {
@@ -167,6 +166,7 @@ export default {
             mensaje: "propietario registrada ....",
           })
           .goAway(3000);
+
         this.refrescarLista(true);
       } else {
         this.$toasted.global

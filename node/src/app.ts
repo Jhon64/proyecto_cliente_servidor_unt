@@ -10,6 +10,7 @@ import empleadoRouter from "./rutas/empleado.router"
 import empresaRouter from "./rutas/empresa.router"
 import autenticarRouter from "./rutas/autenticar.router"
 import propietarioRouter from "./rutas/propietario.router"
+import clienteRouter from "./rutas/cliente.router"
 import cors from "cors"
 
 export class Aplicacion {
@@ -41,6 +42,7 @@ export class Aplicacion {
         this.app.use("/empleado", empleadoRouter)
         this.app.use("/empresa", empresaRouter)
         this.app.use("/propietario", propietarioRouter)
+        this.app.use("/cliente", clienteRouter)
         this.app.use("/", autenticarRouter)
     }
     async database() {

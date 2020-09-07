@@ -4,6 +4,7 @@ import { UsuarioResponse } from "../dto/response/usuarioResponse";
 import { Persona } from '../entidades/Persona';
 import { Usuario } from "../entidades/Usuario";
 import { UsuarioRepository } from "../repositorio/UsuarioRepository";
+import { Cliente } from '../entidades/Cliente';
 
 
 
@@ -67,6 +68,9 @@ export class UsuarioModel implements UsuarioRepository {
     async crearUsuario(persona: Persona, usuario: Usuario): Promise<UsuarioResponse> {
         let resultPersona: Persona = await getRepository(Persona).save(persona)
         if (resultPersona.id !== undefined) {
+            let cliente = new Cliente();
+            cliente.persona = resultPersona
+            let clienteResult = await getRepository(Cliente).save(cliente)
             usuario.persona = resultPersona
             let result: Usuario = await getRepository(Usuario).save(usuario)
             console.log(result)

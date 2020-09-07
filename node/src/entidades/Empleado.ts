@@ -1,5 +1,12 @@
-import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne } from "typeorm"
+import typeorm, {
+  Column,
+  ManyToOne,
+  CreateDateColumn,
+  Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne
+} from "typeorm"
 import { Persona } from "./Persona"
+
+import { Empresa } from './Empresa';
 @Entity()
 export class Empleado {
 
@@ -10,8 +17,8 @@ export class Empleado {
   @JoinColumn()
   persona!: Persona;
 
-  @Column({ nullable: true })
-  negocio!: number
+  @ManyToOne(type => Empresa, empresa => empresa.empleados)
+  empresa!: Empresa
 
   @Column({ nullable: true })
   areaId!: number

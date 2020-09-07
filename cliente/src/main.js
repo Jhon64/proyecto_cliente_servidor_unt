@@ -62,6 +62,26 @@ axios.interceptors.response.use(
       );
     }
 
+    if (error.response.status === 401) {
+      localStorage.removeItem("tokenAuth");
+      router.push(
+        "/",
+        () => {},
+        () => {}
+      );
+      Vue.toasted.error(
+        `status:${error.response.status}  <br>
+      ${error.response.statusText} <br>
+      ${error.message} <br>
+      Error de autenticacion
+      `,
+        {
+          duration: 5000,
+          dismissible: true,
+        }
+      );
+    }
+
     // Cualquier código de estado que esté fuera del gama de 2xx causa de esta función de desencadenar la
     // hacer algo con error de respuesta
     return Promise.reject(error);

@@ -9,7 +9,7 @@ export class EmpleadoModel {
 
 
     async listarEmpleados(): Promise<Array<EmpleadoResponse>> {
-        let lista: Array<Empleado> = await getRepository(Empleado).find({ relations: ["persona"] })
+        let lista: Array<Empleado> = await getRepository(Empleado).find({ relations: ["persona", "empresa"] })
         console.log(lista)
         let result = lista.map((empleado: Empleado, index) => {
 
@@ -25,6 +25,10 @@ export class EmpleadoModel {
                 response.Celular = empleado.persona.celular
                 response.Tipo = empleado.persona.tipo
                 response.CreatedAt = empleado.persona.createdAt
+                if (empleado.empresa !== null) {
+                    //@ts-ignore
+                    response.IdEmpresa = empleado.empresa.id
+                }
 
             }
             return response;
@@ -34,7 +38,7 @@ export class EmpleadoModel {
 
     async registrarEmpleado(empleado: Empleado): Promise<EmpleadoResponse> {
         let resultPersona = await getRepository(Persona).save(empleado.persona)
-
+        console.log(empleado)
         if (resultPersona) {
             empleado.persona = resultPersona
 
@@ -69,7 +73,7 @@ export class EmpleadoModel {
     }
 
     async buscar(id: number) {
-        let result: Empleado | undefined = await getRepository(Empleado).findOne({ idEmpleado: id }, { relations: ["persona"] })
+        let result: Empleado | undefined = await getRepository(Empleado).findOne({ idEmpleado: id }, { relations: ["persona", "empresa"] })
         if (result !== undefined) {
             let responseEmpleado = new EmpleadoResponse()
             responseEmpleado.IdEmpleado = result.idEmpleado
@@ -82,6 +86,10 @@ export class EmpleadoModel {
             responseEmpleado.Correo = result.persona.correo
             responseEmpleado.Celular = result.persona.celular
             responseEmpleado.Tipo = result.persona.tipo
+            if (result.empresa !== null) {
+                //@ts-ignore
+                responseEmpleado.IdEmpresa = result.empresa.id
+            }
             return responseEmpleado;
         } else {
             throw new Error("No se encontró empleado")

@@ -3,5 +3,5 @@ export class EmpleadoRequest extends PersonaRequest {
       tipoEmpleado!: string
       idEmpleado!: number
       areaId!: number
-      negocio!: number
+      empresa!: number
 }

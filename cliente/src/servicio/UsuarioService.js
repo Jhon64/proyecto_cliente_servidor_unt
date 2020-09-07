@@ -1,4 +1,5 @@
 import axios from "axios";
+let token = localStorage.getItem("tokenAuth");
 let usuarioService = {
   async login(credenciales) {
     let result = await axios({
@@ -21,6 +22,7 @@ let usuarioService = {
     let result = await axios({
       baseURL: "http://localhost:4000",
       url: "/usuario/crear",
+      headers: { Authorization: `Bearer ${token}` },
       method: "POST",
       data: data,
     });
@@ -31,6 +33,7 @@ let usuarioService = {
     let result = await axios({
       url: "/usuario/listar",
       method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -39,6 +42,7 @@ let usuarioService = {
     let result = await axios({
       url: "/usuario/buscar/" + dni,
       method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -47,6 +51,7 @@ let usuarioService = {
     console.log("registrando");
     let result = await axios({
       url: "/usuario/registrar",
+      headers: { Authorization: `Bearer ${token}` },
       method: "POST",
       data,
     });
@@ -56,6 +61,7 @@ let usuarioService = {
   async eliminarUsuario(id) {
     let result = await axios({
       url: "/usuario/eliminar/" + id,
+      headers: { Authorization: `Bearer ${token}` },
       method: "DELETE",
     });
     return result;
@@ -65,6 +71,7 @@ let usuarioService = {
     let result = await axios({
       url: "/usuario/buscar/id/" + id,
       method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -72,6 +79,7 @@ let usuarioService = {
   async actualizarUsuario(id, data) {
     let result = await axios({
       url: "/usuario/actualizar/" + id,
+      headers: { Authorization: `Bearer ${token}` },
       method: "PUT",
       data,
     });

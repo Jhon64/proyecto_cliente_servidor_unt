@@ -19,6 +19,17 @@
         </div>
       </td>
     </template>
+
+    <template #TipoPersona="{item}">
+      <td class="">
+        <div v-if="item.Persona !== null">
+          <CBadge color="primary" v-if="item.Persona !== null">
+            {{ item.Persona.tipo }}</CBadge
+          >
+        </div>
+      </td>
+    </template>
+
     <template #opciones="{item }">
       <td class="py-2" style="vertical-align:middle">
         <CButtonToolbar>
@@ -42,9 +53,10 @@ import moment from "moment";
 const fields = [
   { key: "Index", label: "Index" },
   { key: "Usuario", class: "bg-primary" },
-  { key: "Clave", _style: "min-width:100px;", class: "bg-primary" },
+  { key: "Clave", class: "bg-primary" },
   { key: "Rol", class: "bg-primary" },
-  { key: "Persona", _style: "min-width:100px;", class: "bg-primary" },
+  { key: "Persona", class: "bg-primary" },
+  { key: "TipoPersona", label: "Tipo Persona" },
   {
     key: "opciones",
     label: "",

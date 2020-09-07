@@ -16,6 +16,7 @@ let empleadoServicio = {
       method: "POST",
       data: data,
       url: "/empleado/registrar",
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -24,6 +25,7 @@ let empleadoServicio = {
     let result = await axios({
       method: "DELETE",
       url: `/empleado/eliminar/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -32,6 +34,7 @@ let empleadoServicio = {
     let result = await axios({
       method: "GET",
       url: `/empleado/buscar/${id}`,
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },
@@ -41,6 +44,7 @@ let empleadoServicio = {
       method: "PUT",
       url: `/empleado/actualizar/${id}`,
       data,
+      headers: { Authorization: `Bearer ${token}` },
     });
     return result;
   },

@@ -8,16 +8,17 @@ let control = new PropietarioControl()
 let router = Router();
 
 
-router.get("/listar", async (req: Request, res: Response) => {
+router.get("/listar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
 
     let result = await control.listar()
     res.status(200).json(result);
 })
 
-router.post("/registrar", async (req: Request, res: Response) => {
+router.post("/registrar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let propietarioRequest = new PropietarioRequest();
         propietarioRequest = req.body;
+        console.log(propietarioRequest)
         let result = await control.registrar(propietarioRequest);
         res.status(200).send(result);
     } catch (error) {
@@ -27,7 +28,7 @@ router.post("/registrar", async (req: Request, res: Response) => {
 
 })
 
-router.delete("/eliminar/:id", async (req: Request, res: Response) => {
+router.delete("/eliminar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idnumber = parseInt(id)
@@ -38,7 +39,7 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
     }
 })
 
-router.get("/buscar/:id", async (req: Request, res: Response) => {
+router.get("/buscar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idnumber = parseInt(id)
@@ -49,7 +50,7 @@ router.get("/buscar/:id", async (req: Request, res: Response) => {
     }
 })
 
-router.put("/actualizar/:id", async (req: Request, res: Response) => {
+router.put("/actualizar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idx = parseInt(id)

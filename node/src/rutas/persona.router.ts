@@ -8,13 +8,13 @@ let control = new PersonaControl()
 let router = Router();
 
 
-router.get("/listar", async (req: Request, res: Response) => {
+router.get("/listar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
 
     let result = await control.listarPersonas()
     res.status(200).json(result);
 })
 
-router.post("/registrar", async (req: Request, res: Response) => {
+router.post("/registrar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let personaRequest = new PersonaRequest();
         personaRequest = req.body;
@@ -27,13 +27,13 @@ router.post("/registrar", async (req: Request, res: Response) => {
 
 })
 
-router.delete("/eliminar/:id", async (req: Request, res: Response) => {
+router.delete("/eliminar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     let { id } = req.params
     let idnumber = parseInt(id)
     let result = await control.eliminar(idnumber);
     res.send(result);
 })
-router.get("/buscar/:dni", async (req: Request, res: Response) => {
+router.get("/buscar/:dni", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { dni } = req.params
         res.status(200).send(await control.buscarDni(dni));

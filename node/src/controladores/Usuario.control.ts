@@ -82,6 +82,8 @@ export class UsuarioControl {
         if (personaRequest.dni != null) persona.dni = personaRequest.dni;
         if (personaRequest.apellido != null) persona.apellido = personaRequest.apellido
         if (personaRequest.correo != null) persona.correo = personaRequest.correo
+        if (personaRequest.celular != null) persona.celular = personaRequest.celular
+        if (personaRequest.tipo != null) persona.tipo = personaRequest.tipo
         if (personaRequest.fechaNacimiento != null) persona.fechaNacimiento = personaRequest.fechaNacimiento
 
         let result: UsuarioResponse = await this.model.crearUsuario(persona, usuario);

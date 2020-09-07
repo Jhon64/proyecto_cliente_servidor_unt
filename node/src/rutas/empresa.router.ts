@@ -9,12 +9,15 @@ let router = Router();
 
 
 router.get("/listar", async (req: Request, res: Response) => {
-
-    let result = await control.listarEmpresas()
-    res.status(200).json(result);
+    try {
+        let result = await control.listarEmpresas()
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).send(error);
+    }
 })
 
-router.post("/registrar", async (req: Request, res: Response) => {
+router.post("/registrar", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let empresaRequest = new EmpresaRequest();
         empresaRequest = req.body;
@@ -27,7 +30,7 @@ router.post("/registrar", async (req: Request, res: Response) => {
 
 })
 
-router.delete("/eliminar/:id", async (req: Request, res: Response) => {
+router.delete("/eliminar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     let { id } = req.params
     let idnumber = parseInt(id)
     let result = await control.eliminar(idnumber);
@@ -35,7 +38,7 @@ router.delete("/eliminar/:id", async (req: Request, res: Response) => {
 })
 
 
-router.get("/buscar/ruc/:ruc", async (req: Request, res: Response) => {
+router.get("/buscar/ruc/:ruc", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { ruc } = req.params
         let result = await control.buscarRuc(ruc);
@@ -45,7 +48,7 @@ router.get("/buscar/ruc/:ruc", async (req: Request, res: Response) => {
     }
 })
 
-router.get("/buscar/:id", async (req: Request, res: Response) => {
+router.get("/buscar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idx = parseInt(id)
@@ -57,7 +60,7 @@ router.get("/buscar/:id", async (req: Request, res: Response) => {
     }
 })
 
-router.put("/actualizar/:id", async (req: Request, res: Response) => {
+router.put("/actualizar/:id", verificarAutenticacion.verificarToken, async (req: Request, res: Response) => {
     try {
         let { id } = req.params
         let idx = parseInt(id)

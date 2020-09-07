@@ -11,6 +11,7 @@ const Colors = () => import("@/views/theme/Colors");
 
 const Login = () => import("@/views/pages/Login");
 const Register = () => import("@/views/pages/Register");
+const Registrar = () => import("@/views/pages/Registrar");
 
 // Users
 const Usuarios = () => import("@/views/acceso/usuario/Index");
@@ -43,6 +44,11 @@ function configRoutes() {
     },
     {
       path: "/registrar",
+      name: "Login",
+      component: Registrar,
+    },
+    {
+      path: "/register",
       name: "Login",
       component: Register,
     },

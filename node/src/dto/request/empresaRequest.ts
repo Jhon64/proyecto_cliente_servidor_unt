@@ -8,4 +8,5 @@ export class EmpresaRequest {
     tipoNegocio!: string
     propietario!: PropietarioRequest
     idPropietario!: number
+
 }

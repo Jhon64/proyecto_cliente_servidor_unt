@@ -1,14 +1,16 @@
 <template>
-  <div class="c-app flex-row align-items-center">
-    <CContainer>
-      <CRow class="justify-content-center">
-        <CCol md="8">
+  <div class="">
+    <div>
+      <Navbar></Navbar>
+      <CRow class="mt-5">
+        <CCol md="6" sm="6" xs="12" class="mx-auto">
           <CCardGroup>
             <CCard class="p-4">
               <CCardBody>
                 <CForm>
-                  <h1>Login</h1>
-                  <p class="text-muted">Ingresar a tu cuenta</p>
+                  <h3 class="text-center">Login</h3>
+                  <hr />
+
                   <CInput placeholder="Usuario" v-model="usuario">
                     <template #prepend-content
                       ><CIcon name="cil-user"
@@ -20,8 +22,11 @@
                     /></template>
                   </CInput>
                   <CRow>
-                    <CCol col="6" class="text-center">
-                      <CButton color="primary" class="px-4" @click="logear()"
+                    <CCol col="12" class="d-flex justify-content-center">
+                      <CButton
+                        color="primary"
+                        class="btn btn-block btn-sm"
+                        @click="logear()"
                         >Login
                       </CButton>
                     </CCol>
@@ -54,12 +59,12 @@
           </CCardGroup>
         </CCol>
       </CRow>
-    </CContainer>
+    </div>
   </div>
 </template>
 <script>
 import usuarioService from "../../servicio/UsuarioService";
-
+import Navbar from "../../components/NavBar";
 export default {
   name: "Login",
   data() {
@@ -68,6 +73,7 @@ export default {
       clave: "",
     };
   },
+  components: { Navbar },
   created() {},
   methods: {
     redirect() {

@@ -1,10 +1,10 @@
 import axios from "axios";
 let token = localStorage.getItem("tokenAuth");
 
-let personaServicio = {
+let Servicio = {
   async listar() {
     let lista = await axios({
-      url: "/persona/listar",
+      url: "/cliente/listar",
       method: "GET",
       headers: { Authorization: `Bearer ${token}` },
     });
@@ -16,7 +16,7 @@ let personaServicio = {
       method: "POST",
       data: data,
       headers: { Authorization: `Bearer ${token}` },
-      url: "/persona/registrar",
+      url: "/cliente/registrar",
     });
     return result;
   },
@@ -24,11 +24,20 @@ let personaServicio = {
   async eliminar(id) {
     let result = await axios({
       method: "DELETE",
+      url: `/cliente/eliminar/${id}`,
       headers: { Authorization: `Bearer ${token}` },
-      url: `/persona/eliminar/${id}`,
+    });
+    return result;
+  },
+  async crear(data) {
+    let result = await axios({
+      url: "/cliente/crear",
+      headers: { Authorization: `Bearer ${token}` },
+      method: "POST",
+      data: data,
     });
     return result;
   },
 };
 
-export default personaServicio;
+export default Servicio;

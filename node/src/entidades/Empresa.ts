@@ -1,6 +1,7 @@
-import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne, ManyToOne } from "typeorm"
+import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne, ManyToOne, OneToMany } from "typeorm"
 import { Persona } from "./Persona"
 import { Propietario } from "./Propietario"
+import { Empleado } from './Empleado';
 @Entity()
 export class Empresa {
 
@@ -9,6 +10,9 @@ export class Empresa {
 
     @ManyToOne(type => Propietario, propietario => propietario.empresas)
     propietario!: Propietario;
+
+    @OneToMany(type => Empleado, empleado => empleado)
+    empleados!: Empleado[]
 
     @Column()
     razonSocial!: string

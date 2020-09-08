@@ -85,6 +85,15 @@ let usuarioService = {
     });
     return result;
   },
+
+  async verificarAutenticacion() {
+    let result = await axios({
+      url: "/usuario/verificarAuth",
+      headers: { Authorization: `Bearer ${token}` },
+      method: "POST",
+    });
+    return result;
+  },
 };
 
 export default usuarioService;

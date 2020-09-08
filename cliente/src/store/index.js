@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import notificacionesModule from "./modulos/notificaciones";
+import usuarioModule from "./modulos/usuario";
+
 Vue.use(Vuex);
 
 const state = {
@@ -27,5 +29,6 @@ export default new Vuex.Store({
   mutations,
   modules: {
     notificacionesModule,
+    usuarioModule,
   },
 });

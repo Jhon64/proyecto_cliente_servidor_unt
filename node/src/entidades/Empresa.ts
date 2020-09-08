@@ -3,6 +3,7 @@ import { Persona } from "./Persona"
 import { Propietario } from "./Propietario"
 import { Empleado } from './Empleado';
 import { Servicio } from './Servicios';
+import { ServicioEmpresa } from './ServicioEmpresa';
 @Entity()
 export class Empresa {
 
@@ -15,8 +16,8 @@ export class Empresa {
     @OneToMany(type => Empleado, empleado => empleado)
     empleados!: Empleado[]
 
-    @OneToMany(type => Servicio, servicio => servicio.empresa)
-    servicios!: Servicio[]
+    @OneToMany(type => ServicioEmpresa, empresaServicio => empresaServicio.empresa)
+    empresaServicio!: ServicioEmpresa
 
     @Column()
     razonSocial!: string

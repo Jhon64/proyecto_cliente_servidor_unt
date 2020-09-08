@@ -63,8 +63,8 @@
   </div>
 </template>
 <script>
-import usuarioService from "../../servicio/UsuarioService";
-import Navbar from "../../components/NavBar";
+import usuarioService from "../../../servicio/UsuarioService";
+import Navbar from "../../../components/NavBar";
 export default {
   name: "Login",
   data() {
@@ -75,6 +75,7 @@ export default {
   },
   components: { Navbar },
   created() {},
+
   methods: {
     redirect() {
       console.log("redireccionando");
@@ -90,9 +91,11 @@ export default {
         usuario: this.usuario,
         clave: this.clave,
       };
+
       usuarioService.login(data).then((result) => {
         if (result.status == 200) {
           let token = result.data.token;
+          this.$store.commit("cargarUsuario", result.data.usuario);
           localStorage.setItem("tokenAuth", token);
           this.$router.push(
             "/dashboard",

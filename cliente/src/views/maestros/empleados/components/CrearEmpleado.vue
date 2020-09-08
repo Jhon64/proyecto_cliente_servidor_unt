@@ -152,7 +152,6 @@ export default {
               "No se pudo cargar Emresas...<br> por favor registre empresas",
           })
           .goAway(1200);
-        alse;
       }
     },
     async listarEmpresas() {

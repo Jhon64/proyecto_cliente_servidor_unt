@@ -11,6 +11,9 @@ import empresaRouter from "./rutas/empresa.router"
 import autenticarRouter from "./rutas/autenticar.router"
 import propietarioRouter from "./rutas/propietario.router"
 import clienteRouter from "./rutas/cliente.router"
+import servicioRouter from "./rutas/servicio.router"
+import empresaServicioRouter from "./rutas/EmpresaServicio.router"
+import fileUpload from 'express-fileupload'
 import cors from "cors"
 
 export class Aplicacion {
@@ -27,8 +30,13 @@ export class Aplicacion {
         this.app.use(morgan("dev"))
         this.app.use(cors())
         this.app.use(parser.json())
-        this.app.use(parser.urlencoded({ extended: true }))
+        //para que la carpeta uploads sea publica y pueda accedes desde la url
 
+        this.app.use("/uploads", (express.static('./uploads')))
+        this.app.use(parser.urlencoded({ extended: true }))
+        this.app.use(fileUpload({
+            createParentPath: true
+        }));
     }
 
     configuraciones() {
@@ -42,7 +50,9 @@ export class Aplicacion {
         this.app.use("/empleado", empleadoRouter)
         this.app.use("/empresa", empresaRouter)
         this.app.use("/propietario", propietarioRouter)
+        this.app.use("/servicio", servicioRouter)
         this.app.use("/cliente", clienteRouter)
+        this.app.use("/empresa/servicio", empresaServicioRouter)
         this.app.use("/", autenticarRouter)
     }
     async database() {

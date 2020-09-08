@@ -82,6 +82,10 @@ export default [
             name: "Servicios",
             to: "/maestros/servicios",
           },
+          {
+            name: "Catalogo",
+            to: "/maestros/catalogos",
+          },
         ],
       },
       {

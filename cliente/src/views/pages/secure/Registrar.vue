@@ -142,11 +142,11 @@
 </template>
 
 <script>
-import Servicio from "../../servicio/ClienteService";
+import Servicio from "../../../servicio/ClienteService";
 import emailMask from "text-mask-addons/dist/emailMask";
 import MaskedInput from "vue-text-mask";
 import { TheMask } from "vue-the-mask";
-import Navbar from "../../components/NavBar";
+import Navbar from "../../../components/NavBar";
 import Datepicker from "vuejs-datepicker";
 import Swal from "sweetalert2";
 

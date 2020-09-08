@@ -63,8 +63,8 @@
 </template>
 
 <script>
-import usuarioServicio from "../../servicio/UsuarioService";
-import Navbar from "../../components/NavBar";
+import usuarioServicio from "../../../servicio/UsuarioService";
+import Navbar from "../../../components/NavBar";
 export default {
   name: "Register",
   data() {

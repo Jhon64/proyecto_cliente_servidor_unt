@@ -13,11 +13,12 @@ router.post("/login", async (req: Request, res: Response) => {
         //@ts-ignore
         if (result.token) {
             //@ts-ignore
-            res.status(200).json({ token: result.token })
+            res.status(200).json({ token: result.token, usuario: result.usuario })
         } else {
             res.status(401).json({ mensaje: "clave y/o usuario incorrectos" })
         }
     } catch (error) {
+        console.log(error)
         res.status(500).send(error)
     }
 

@@ -1,7 +1,11 @@
 <template>
-  <CNavbar expandable="md" type="dark" color="info">
+  <CNavbar
+    expandable="md"
+    type="dark"
+    style="background-color: #049a27 !important;"
+  >
     <CToggler in-navbar @click="collapsed = !collapsed" />
-    <CNavbarBrand href="#"></CNavbarBrand>
+    <CNavbarBrand href="/home">BarberShop</CNavbarBrand>
     <CCollapse :show="collapsed" navbar>
       <!-- Right aligned nav items -->
       <CNavbarNav class="ml-auto">

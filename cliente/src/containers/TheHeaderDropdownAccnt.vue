@@ -14,7 +14,7 @@
     </template>
 
     <CDropdownHeader tag="div" class="text-center" color="light">
-      <strong>Configuracion</strong>
+      <strong>{{ $store.state.usuarioModule.usuario.usuario }}</strong>
     </CDropdownHeader>
     <CDropdownItem>
       <CIcon name="cil-user" /><router-link to="/perfil">Perfil</router-link>

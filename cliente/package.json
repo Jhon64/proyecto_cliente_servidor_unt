@@ -1,28 +1,10 @@
 {
-  "name": "@coreui/coreui-free-vue-admin-template",
-  "version": "3.0.2",
-  "description": "Open Source Bootstrap Admin Template",
-  "author": {
-    "name": "CoreUI",
-    "url": "https://coreui.io",
-    "github": "https://github.com/coreui",
-    "twitter": "https://twitter.com/core_ui"
-  },
-  "contributors": [
-    {
-      "name": "CoreUI Team",
-      "url": "https://github.com/orgs/coreui/people"
-    }
-  ],
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:coreui/coreui-free-vue-admin-template.git"
-  },
   "homepage": "http://coreui.io",
   "copyright": "Copyright 2020 creativeLabs Łukasz Holeczek",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
+    "start": "node server.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test:unit": "vue-cli-service test:unit",
@@ -46,6 +28,8 @@
     "sweetalert2": "^9.17.2",
     "text-mask-addons": "^3.8.0",
     "vue": "~2.6.11",
+    "express": "^4.17.1",
+    "serve-static": "^1.14.1",
     "vue-head": "^2.2.0",
     "vue-router": "~3.3.2",
     "vue-select": "^3.10.8",

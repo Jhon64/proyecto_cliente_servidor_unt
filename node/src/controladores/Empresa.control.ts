@@ -1,6 +1,6 @@
 
 import { EmpresaModel } from '../modelos/Empresa.model';
-import { EmpresaRequest } from '../dto/request/EmpresaRequest';
+import { EmpresaRequest } from '../dto/request/empresaRequest';
 import { Empresa } from '../entidades/Empresa';
 import { Propietario } from '../entidades/Propietario';
 

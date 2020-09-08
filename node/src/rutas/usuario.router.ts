@@ -99,4 +99,8 @@ router.put("/actualizar/:id", verificarAutenticacion.verificarToken, async (req:
     }
 })
 
+router.post("/verificarAuth", verificarAutenticacion.verificarToken, (req: Request, res: Response) => {
+    res.status(200).send({ auth: true, text: "autenticado" })
+})
+
 export default router

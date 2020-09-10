@@ -23,7 +23,7 @@ export class Persona {
     @Column({ nullable: true })
     celular!: string
 
-    @Column({ length: 8 })
+    @Column({ length: 8, unique: true })
     dni!: string
 
     @Column({ default: 1 })

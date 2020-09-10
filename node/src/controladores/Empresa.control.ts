@@ -69,4 +69,10 @@ export class EmpresaControl {
         console.log(result)
         return result
     }
+
+    async listarServiciosxEmpresas(id: number) {
+        let result = await this.model.listarServiciosxEmpresas(id)
+        return result
+    }
+
 }

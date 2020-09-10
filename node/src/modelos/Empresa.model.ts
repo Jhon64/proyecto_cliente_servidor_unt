@@ -76,7 +76,10 @@ export class EmpresaModel {
         } else {
             throw new Error("no se pudo actualizar empresa")
         }
-
     }
 
+    async listarServiciosxEmpresas(id: number) {
+        let detalle = await getRepository(Empresa).find({ where: { id }, relations: ["empresaServicio", "empresaServicio.servicio"] })
+        return detalle
+    }
 }

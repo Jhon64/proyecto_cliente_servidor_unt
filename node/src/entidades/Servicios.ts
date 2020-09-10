@@ -28,6 +28,7 @@ export class Servicio {
     @Column({ nullable: true })
     tipoSexo!: string
 
+
     @Column({ nullable: true, type: "float" })
     precio!: string
     @CreateDateColumn()

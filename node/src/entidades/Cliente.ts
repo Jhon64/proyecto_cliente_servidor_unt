@@ -1,5 +1,6 @@
-import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne } from "typeorm"
+import typeorm, { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, Table, UpdateDateColumn, JoinColumn, OneToOne, OneToMany } from "typeorm"
 import { Persona } from "./Persona"
+import { Reservacion } from './Reservacion';
 @Entity()
 export class Cliente {
     @PrimaryGeneratedColumn()
@@ -11,5 +12,8 @@ export class Cliente {
 
     @Column({ default: 1 })
     estado!: number
+
+    @OneToMany(type => Reservacion, reservacion => reservacion.cliente)
+    reservacion!: Reservacion[]
 
 }

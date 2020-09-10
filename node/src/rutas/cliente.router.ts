@@ -66,7 +66,7 @@ router.post("/crear", async (req: Request, res: Response) => {
         personaRequest.celular = req.body.celular
         let result = await control.crearUsuario(personaRequest, usuarioRequest)
         console.log(result);
-        res.send(result)
+        res.status(200).send(result)
     } catch (error) {
         res.status(500).send(error)
     }

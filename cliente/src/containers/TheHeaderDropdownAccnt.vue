@@ -36,6 +36,7 @@ export default {
   },
   methods: {
     cerrarSesion() {
+      localStorage.removeItem("usuario");
       localStorage.removeItem("tokenAuth");
       this.$router.push(
         "/",

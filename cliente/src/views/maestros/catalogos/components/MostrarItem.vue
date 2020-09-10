@@ -19,7 +19,7 @@
         />
         <img
           v-else
-          :src="'http://localhost:4000/' + informacion.imagenServicio"
+          :src="baseUrl + informacion.imagenServicio"
           height="100"
           class=""
           style="width:100%"
@@ -46,6 +46,11 @@
 
 <script>
 export default {
+  data() {
+    return {
+      baseUrl: process.env.VUE_APP_BASE_URL,
+    };
+  },
   props: ["informacion", "idEmpresa", "idServicio"],
 };
 </script>

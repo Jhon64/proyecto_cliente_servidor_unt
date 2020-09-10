@@ -74,6 +74,17 @@ router.put("/actualizar/:id", verificarAutenticacion.verificarToken, async (req:
         res.status(500).send(error)
     }
 })
+router.get("/detalle/servicio/:empresaId", async (req: Request, res: Response) => {
+    try {
+        let { empresaId } = req.params
+        let id = parseInt(empresaId)
+        let result = await control.listarServiciosxEmpresas(id)
+        res.status(200).json(result);
+    } catch (error) {
+        console.log(error)
+        res.status(200).json(error);
+    }
 
+})
 
 export default router

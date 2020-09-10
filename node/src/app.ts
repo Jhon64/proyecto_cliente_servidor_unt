@@ -11,10 +11,31 @@ import empresaRouter from "./rutas/empresa.router"
 import autenticarRouter from "./rutas/autenticar.router"
 import propietarioRouter from "./rutas/propietario.router"
 import clienteRouter from "./rutas/cliente.router"
+import pagosRouter from "./rutas/pagos.router"
 import servicioRouter from "./rutas/servicio.router"
 import empresaServicioRouter from "./rutas/EmpresaServicio.router"
+import reservacionRouter from "./rutas/reservacion.router"
+
 import fileUpload from 'express-fileupload'
 import cors from "cors"
+
+import squareConnect from "square-connect";
+
+// Set the Access Token
+const accessToken =
+    "EAAAELlyGbQecjPgiQ0ezYl4n0xRZB1fJf1ncPyz7uFoQG2x-1g56diTg10XLrJL";
+
+// Set Square Connect credentials and environment
+const defaultClient = squareConnect.ApiClient.instance;
+
+// Configure OAuth2 access token for authorization: oauth2
+const oauth2 = defaultClient.authentications["oauth2"];
+oauth2.accessToken = accessToken;
+
+// Set 'basePath' to switch between sandbox env and production env
+// sandbox: https://connect.squareupsandbox.com
+// production: https://connect.squareup.com
+defaultClient.basePath = "https://connect.squareupsandbox.com";
 
 export class Aplicacion {
     private app: Application;
@@ -52,7 +73,9 @@ export class Aplicacion {
         this.app.use("/propietario", propietarioRouter)
         this.app.use("/servicio", servicioRouter)
         this.app.use("/cliente", clienteRouter)
+        this.app.use("/pagos", pagosRouter)
         this.app.use("/empresa/servicio", empresaServicioRouter)
+        this.app.use("/reservacion", reservacionRouter)
         this.app.use("/", autenticarRouter)
     }
     async database() {

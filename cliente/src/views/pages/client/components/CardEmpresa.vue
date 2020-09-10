@@ -51,11 +51,20 @@ export default {
   methods: {
     redireccionar(empresaId) {
       console.log(empresaId);
-      this.$router.push(
-        { path: `/home/empresa/${empresaId}` },
-        () => {},
-        () => {}
-      );
+      let usuario = JSON.parse(localStorage.getItem("usuario"));
+      if (usuario !== null) {
+        this.$router.push(
+          { path: `/reservacion/catalogo/${empresaId}` },
+          () => {},
+          () => {}
+        );
+      } else {
+        this.$router.push(
+          { path: `/home/empresa/${empresaId}` },
+          () => {},
+          () => {}
+        );
+      }
     },
     async cargarEmpresas() {
       this.listEmpresas = [];

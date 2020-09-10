@@ -65,6 +65,7 @@
 <script>
 import usuarioService from "../../../servicio/UsuarioService";
 import Navbar from "../../../components/NavBar";
+import Swal from "sweetalert2";
 export default {
   name: "Login",
   data() {
@@ -87,25 +88,56 @@ export default {
     },
     logear() {
       console.log("enviando datos para logeo");
+      let _vm = this;
+      Swal.fire({
+        onBeforeOpen: () => {
+          Swal.showLoading();
+        },
+      });
       let data = {
         usuario: this.usuario,
         clave: this.clave,
       };
 
-      usuarioService.login(data).then((result) => {
-        if (result.status == 200) {
-          let token = result.data.token;
-          this.$store.commit("cargarUsuario", result.data.usuario);
-          localStorage.setItem("tokenAuth", token);
+      usuarioService
+        .login(data)
+        .then((result) => {
+          Swal.close();
+          if (result.status == 200) {
+            let token = result.data.token;
+            this.$store.commit("cargarUsuario", result.data.usuario);
+            localStorage.setItem("tokenAuth", token);
+            localStorage.removeItem("usuario");
+            localStorage.setItem(
+              "usuario",
+              JSON.stringify({
+                usuario: result.data.usuario.usuario,
+                id: result.data.usuario.idUsuario,
+                rol: result.data.usuario.rol,
+              })
+            );
+            _vm.$toasted.global
+              .appSuccess({
+                mensaje: "Accediendo a la aplicación...",
+              })
+              .goAway(5000);
+            location.href = "/Dashboard";
+          } else {
+            localStorage.removeItem("tokenAuth");
+          }
+        })
+        .catch((error) => {
+          _vm.$toasted.global
+            .appError({
+              mensaje: "clave y/o contraseña incorrecta",
+            })
+            .goAway(5000);
           this.$router.push(
-            "/dashboard",
+            "/login",
             () => {},
             () => {}
           );
-        } else {
-          localStorage.removeItem("tokenAuth");
-        }
-      });
+        });
     },
   },
 };

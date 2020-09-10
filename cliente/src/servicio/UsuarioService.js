@@ -3,7 +3,6 @@ let token = localStorage.getItem("tokenAuth");
 let usuarioService = {
   async login(credenciales) {
     let result = await axios({
-      baseURL: "http://localhost:4000",
       url: "/login",
       method: "POST",
       data: credenciales,
@@ -20,7 +19,6 @@ let usuarioService = {
 
   async crear(data) {
     let result = await axios({
-      baseURL: "http://localhost:4000",
       url: "/usuario/crear",
       headers: { Authorization: `Bearer ${token}` },
       method: "POST",

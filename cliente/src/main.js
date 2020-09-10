@@ -27,10 +27,14 @@ import "sweetalert2/src/sweetalert2.scss";
 import Swal from "sweetalert2";
 import vSelect from "vue-select";
 import "vue-select/dist/vue-select.css";
-
+import "./assets/css/mysqpaymentform.css";
+import Antd from "ant-design-vue";
+import "ant-design-vue/dist/antd.css";
 Vue.component("v-select", vSelect);
-axios.defaults.baseURL = "http://localhost:4000";
 
+axios.defaults.baseURL = process.env.VUE_APP_BASE_URL;
+
+Vue.use(Antd);
 Vue.use(Vuelidate);
 Vue.use(VueTheMask);
 Vue.component("masked-input", MaskedInput);

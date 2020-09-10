@@ -34,6 +34,16 @@ const Clientes = () => import("@/views/negocio/clientes/Index");
 const LayoutPrincipal = () => import("@/layout/PrincipalView");
 const Principal = () => import("@/views/pages/client/vistaPrincipal");
 const DetalleEmpresa = () => import("@/views/pages/client/DetalleEmpresa");
+const Carrito = () => import("@/views/pages/client/Carrito");
+const PagoReservacion = () => import("@/views/pages/client/PagoReservacion");
+const Reservacion = () => import("@/views/reservaciones/reservacion/Index");
+const ReservacionesPendientes = () =>
+  import("@/views/reservaciones/reservacion/Pendientes");
+
+const ReservacionFinalizar = () =>
+  import("@/views/reservaciones/reservacion/Index");
+const ReservacionCatalogo = () =>
+  import("@/views/reservaciones/reservacion/Catalogo");
 
 Vue.use(Router);
 
@@ -76,6 +86,16 @@ function configRoutes() {
           path: "empresa/:id",
           name: "Empresa",
           component: DetalleEmpresa,
+        },
+        {
+          path: "carrito/:id",
+          name: "Carrito",
+          component: Carrito,
+        },
+        {
+          path: "reservacion",
+          name: "Reservacion",
+          component: PagoReservacion,
         },
       ],
     },
@@ -182,6 +202,49 @@ function configRoutes() {
               path: "empleados",
               name: "Empleados",
               component: empleados,
+            },
+          ],
+        },
+        {
+          path: "reservacion",
+          redirect: "/reservacion/catalogo",
+          name: "Reservacion",
+          component: {
+            render(c) {
+              return c("router-view");
+            },
+          },
+          children: [
+            {
+              path: "finalizar",
+              name: "Reservacion",
+              component: PagoReservacion,
+            },
+            {
+              path: "catalogo",
+              name: "Catalogo",
+              component: ReservacionCatalogo,
+            },
+            {
+              path: "cita",
+              name: "Citas",
+              component: Reservacion,
+            },
+            {
+              path: "reservacion",
+              name: "Reservacion",
+              component: ReservacionesPendientes,
+            },
+
+            {
+              path: "catalogo/:id",
+              name: "Catalogo",
+              component: DetalleEmpresa,
+            },
+            {
+              path: "carro/:id",
+              name: "Carrito",
+              component: Carrito,
             },
           ],
         },

@@ -57,6 +57,14 @@ let empresaServicio = {
     });
     return result;
   },
+  async listarServiciosxEmpresas(empresa) {
+    let lista = await axios({
+      url: `/empresa/detalle/servicio/${empresa}`,
+      method: "GET",
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return lista;
+  },
 };
 
 export default empresaServicio;

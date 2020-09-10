@@ -197,7 +197,7 @@ export default {
         rol: 1,
       };
       let result = await Servicio.crear(data);
-
+      console.log(result);
       if (result.status == 200 || result.statusText == "Ok") {
         Swal.fire({
           position: "top-center",
@@ -211,6 +211,13 @@ export default {
           })
           .goAway(5000);
         let token = result.data.token;
+        let usuario = {
+          rol: result.data.Rol,
+          usuario: result.data.Usuario,
+          id: result.data.IdUsuario,
+        };
+        this.$store.commit("cargarUsuario", usuario);
+        localStorage.setItem("usuario", JSON.stringify(usuario));
         localStorage.setItem("tokenAuth", token);
         this.$router.push(
           "/dashboard",

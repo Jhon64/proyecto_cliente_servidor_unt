@@ -52,7 +52,9 @@ export class ClienteControl {
                 clave: result.Clave
             }
             let token = jwt_token.generarToken(payload);
-            return { token: token };
+            //@ts-ignore
+            result.token = token
+            return result;
         } else {
             throw new Error("No se pudo crear Usuario");
         }
